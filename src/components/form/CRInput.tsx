@@ -6,11 +6,12 @@ type TInputProps = {
   name: string;
   label?: string;
   disabled?: boolean;
+  className?:string;
 };
 
-const CRInput = ({ type, name, label, disabled }: TInputProps) => {
+const CRInput = ({ type, name, label, disabled,className }: TInputProps) => {
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div className={className}>
       <Controller
         name={name}
         render={({ field }) => (
