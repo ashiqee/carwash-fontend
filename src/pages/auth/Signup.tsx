@@ -1,6 +1,7 @@
 import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
 import CARButton from '@/components/ui/CARButton';
+import { useSignupMutation } from '@/redux/features/auths/authApi';
 
 import { Link } from 'react-router-dom';
 
@@ -14,11 +15,16 @@ import { Link } from 'react-router-dom';
 // }
 
 const Signup = () => {
+    const [signup]=useSignupMutation()
 
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onSubmit = async (data:any)=>{
-        console.log(data);
+        const userInfo = {...data,role:"user"}
+        console.log(userInfo);
+        const res = await signup(userInfo)
+        console.log(res);
+        
         
     }
 
@@ -40,7 +46,7 @@ const Signup = () => {
     <CRInput type='text' className='w-full' name='phone' label='Phone' />
     </div>
     <CRInput type='text' name='address' label='Full Address' />
-    <CRInput type='password' name='Password' label='Password' />
+    <CRInput type='password' name='password' label='Password' />
     
     <CARButton className='text-xl px-4 p-1.5' text='Sign Up'/>
 </CRForm>

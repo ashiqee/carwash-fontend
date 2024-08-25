@@ -9,6 +9,15 @@ endpoints:(builder)=>({
             body:userInfo,
         }),
     }),
+
+    signup: builder.mutation({
+        query: (userInfo)=>({
+            url:"/auth/signup",
+            method:"POST",
+            body: userInfo,
+        })
+    })
+
 }),
 
 });
@@ -16,5 +25,5 @@ endpoints:(builder)=>({
 
 
 export const {
- useLoginMutation
+ useLoginMutation, useSignupMutation
 } = authApi;

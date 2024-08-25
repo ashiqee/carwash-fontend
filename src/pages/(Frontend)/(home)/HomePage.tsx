@@ -2,6 +2,7 @@ import CARButton from "@/components/ui/CARButton";
 import { useGetServicesQuery } from "@/redux/features/services/servicesApi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Banner from "./Section/Banner";
 
 const initialFilterValues: TFilters = {
   searchTerm: '',
@@ -18,14 +19,8 @@ const HomePage = () => {
   
   return (
     <div className="space-y-20 font-bold flex gap-20  text-primary ">
- Home Page 
 
-<Link to={'/login'}>
- <CARButton text="Login"/>
-</Link>
-<Link to={'/signup'}>
- <CARButton text="Sign Up"/>
-</Link>
+<Banner/>
     </div>
   );
 };

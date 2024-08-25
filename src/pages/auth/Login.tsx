@@ -18,7 +18,7 @@ const Login = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onSubmit = async (data:any)=>{
-        console.log(data);
+      
         const toastId = toast.loading('Loggin in')
 
        try{
@@ -35,7 +35,7 @@ const Login = () => {
         if(res.data.needsPasswordChange){
             // navigate('/change-password')
         }else{
-            // navigate("/")
+            navigate("/")
         } 
         
        }
