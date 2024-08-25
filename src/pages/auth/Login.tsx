@@ -1,15 +1,49 @@
 import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
 import CARButton from '@/components/ui/CARButton';
+import { useLoginMutation } from '@/redux/features/auths/authApi';
+import { setUser, TUser } from '@/redux/features/auths/authSlice';
+import { useAppDispatch } from '@/redux/hook';
+import { verifyToken } from '@/utils/verifyToken';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Login = () => {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
+    const [login]= useLoginMutation()
+    
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onSubmit = async (data:any)=>{
         console.log(data);
+        const toastId = toast.loading('Loggin in')
+
+       try{
+        const res = await login(data).unwrap()
+        
+        const user =  verifyToken(res.token) as TUser
+        dispatch(setUser({user:user,token:res.token}));
+        toast.success('Logged in', {id:toastId, duration:2000})
+
+
+        console.log(user);
+        
+
+        if(res.data.needsPasswordChange){
+            // navigate('/change-password')
+        }else{
+            // navigate("/")
+        } 
+        
+       }
+        catch(err){
+            toast.error(`Something went wrong`,{id: toastId, duration:2000})
+        }
+        
+        
         
     }
 
@@ -25,8 +59,8 @@ const Login = () => {
 
 
 <CRForm onSubmit={onSubmit}>
-    <CRInput type='text' name='username' label='Userid or Mobile No' />
-    <CRInput type='password' name='Password' label='Password' />
+    <CRInput type='email' name='email' label='Email' />
+    <CRInput type='password' name='password' label='Password' />
     
     <CARButton className='text-xl px-4 p-1.5' text='Login'/>
 </CRForm>
