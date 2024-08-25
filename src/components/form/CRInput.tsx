@@ -7,6 +7,7 @@ type TInputProps = {
   label?: string;
   disabled?: boolean;
   className?:string;
+  size?:string;
 };
 
 const CRInput = ({ type, name, label, disabled,className }: TInputProps) => {
