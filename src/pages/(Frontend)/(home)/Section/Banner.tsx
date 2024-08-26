@@ -1,14 +1,106 @@
-import React from 'react';
+'use client'
+import { Button } from "@/components/ui/button";
+import CARButton from "@/components/ui/CARButton";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+  } from "@/components/ui/carousel"
+  import Autoplay from "embla-carousel-autoplay"
+import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+
+
+
+export function Example() {
+  return (
+    <Carousel
+      plugins={[
+        Autoplay({
+          delay: 2500,
+        }),
+      ]}
+    >
+      
+    </Carousel>
+  )
+}
 
 const Banner = () => {
+const [isHover,setIsHover]= useState(false)
+    const carouselImg = [
+        {
+            id:1,
+            url: 'https://i.postimg.cc/SK7SGMt0/sign-up.png',
+            tagLine:"Stay Fresh, Drive Clean",
+            title:"The Car Washing Pump Advantage",
+
+           
+        },
+        {
+            id:2,
+            // url: 'https://i.postimg.cc/hvF6f3TF/Slider-1-1.webp'
+            url: 'https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI0LTAzL3Jhd3BpeGVsX29mZmljZV80Ml9waG90b19vZl9zcG9ydF9vcmFuZ2VfY2FyX2luX3dhc2hpbmdfc2VydmljZV83YjI0ZWNlMS02NTBjLTRlOTAtYmM0ZS02NjIzNGQ2YzNiOTBfMS5qcGc.jpg',
+            tagLine:"We Scrub, You Smile",
+            title:"Clean Cars. Happy Hearts",
+           
+        },
+        {
+            id:3,
+            url: 'https://images.pexels.com/photos/6873118/pexels-photo-6873118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            tagLine:"Get Your Shine On",
+            title:"Gentle on Your Car, Powerful on Clean",
+           
+        },
+    ]
+
+
     return (
-        <div className=' w-full'>
-            <iframe 
-            className='w-[50vw]  h-[59vh] object-cover '
-            src="https://www.youtube.com/embed/e3Aa90zoOg4?autoplay=1"
-             allow='autoplay' ></iframe>
-            
+        <Carousel
+        onMouseOver={()=>setIsHover(true)} onMouseLeave={()=>setIsHover(false)}
+        plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+        >
+  <CarouselContent>
+    {
+        carouselImg.map((item)=> (<CarouselItem className="relative " key={item.id}>  
+        <img
+  className="object-cover w-full  object-center   2xl:h-[600px] xl:object-cover"
+  src={item.url}
+  
+  alt={`slide-${item.id}`}
+/>
+        <div className="absolute space-y-6 top-[13%] bg-primary/25 rounded-2xl py-10 text-white  xl:top-[20%] 
+           px-20 left-[20%] max-w-7xl  mx-auto flex flex-col   items-center">
+            <p className="uppercase text-center text-[8px] md:text-xl">{item.tagLine}</p>
+            <h3 className="2xl:text-6xl text-[11px] text-center   xl:text-5xl font-bold uppercase">{item.title}</h3>
+            <Link to='/products'>
+            <Button size={"sm"} className="mt-1 text-[11px] xl:hidden   text-white font-bold">SHOP NOW</Button>
+            <CARButton text="BOOKED NOW" className="px-4 text-xl p-2 mt-6"/>
+     
+            </Link>
         </div>
+    </CarouselItem>)  )
+    }
+   
+    
+  </CarouselContent>
+  <CarouselPrevious className={`absolute ${isHover ? "left-2 bg-primary/20":"hidden"}  top-1/2 text-2xl   transform -translate-y-1/2  text-black rounded-full`}>
+       <ArrowLeft/>
+      </CarouselPrevious>
+      <CarouselNext className={`absolute ${isHover ? "right-2 bg-primary/20": "hidden"}  top-1/2 transform -translate-y-1/2  text-black  rounded-full`}>
+        Next
+      </CarouselNext>
+</Carousel>
+
+       
     );
 };
 

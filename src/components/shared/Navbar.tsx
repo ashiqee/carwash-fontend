@@ -7,6 +7,8 @@ import { Avatar, Input } from 'antd';
 import CRInput from '../form/CRInput';
 import CRForm from '../form/CRForm';
 import Search from '../ui/Search';
+import { Clock8, PhoneCall } from 'lucide-react';
+import Iconbg from '../ui/Iconbg';
 
 const Navbar = () => {
   const user = useAppSelector(selectCurrentUser);
@@ -31,19 +33,28 @@ const Navbar = () => {
        <h1 className="text-3xl text-primary  font-bold ">Car Wash</h1>
        <small>professional car wash</small>
        </div>
-     
+       
      {/* //call us  */}
-     <div>
+     <div className='flex  items-center'>
+        <Iconbg icon={<PhoneCall />} className='rounded-full shadow-2xl' />
+        <div>
         <p>Call Us</p>
         <p>+1 880 555 6580</p>
-     </div>
-     {/* //time us  */}
-     <div>
-        <p>Mon-Sat: 7:00am - 6:00pm</p>
-        <p>Sun: 7:00am - 6:00pm</p>
-       
+        </div>
      </div>
 
+{/* //time us  */}
+     <div className='flex  items-center'>
+     <Iconbg icon={<Clock8 />} className='rounded-full shadow-2xl' />
+        <div>
+        <p>Mon-Sat: 7:00am - 6:00pm</p>
+        <p>Sun: 7:00am - 6:00pm</p>
+        </div>
+     </div>
+
+
+     
+    
 <CARButton text='Book an Appointment' className='text-xl p-2 px-10'/>
       </div>
       <div className='bg-button-gradient py-3 text-white'>
