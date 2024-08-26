@@ -19,28 +19,22 @@ const serviceApi = baseApi.injectEndpoints({
       }),
       providesTags: ['services'],
     }),
-    getCartsServices: builder.query({
-      query: (serviceIds) => {
-        if (serviceIds.length > 0) {
-         
 
-          return {
-            url: `/services/carts`,
-            method: 'GET',
-            params: { serviceIds: serviceIds },
-          };
-        }
-        return {
-          url: `/services/carts`,
-          method: 'GET',
-          params: ['asdad'],
-        };
+    getAvailableServices: builder.query({
+      query: (payload) => {
+       
+        const params = new URLSearchParams(
+          payload,
+        );
+       
+                   
+        return `/slots/availability?${params}`
       },
       providesTags: ['services'],
     }),
 
-    // addProduct api 
-    addProduct: builder.mutation({
+    // addService api 
+    addService: builder.mutation({
       query: (data) => ({
         url: '/services',
         method: 'POST',
@@ -49,8 +43,8 @@ const serviceApi = baseApi.injectEndpoints({
       invalidatesTags: ['services'],
     }),
 
-    // updateProduct api 
-    updateProduct: builder.mutation({
+    // updateService api 
+    updateService: builder.mutation({
       query: (data) => ({
         url: `/services/${data.id}`,
         method: 'PUT',
@@ -60,7 +54,7 @@ const serviceApi = baseApi.injectEndpoints({
     }),
 
     // delete service api 
-    deleteProduct: builder.mutation({
+    deleteService: builder.mutation({
       query: (id) => ({
         url: `/services/${id}`,
         method: 'DELETE',
@@ -72,9 +66,9 @@ const serviceApi = baseApi.injectEndpoints({
 
 export const {
   useGetServicesQuery,
-  useAddProductMutation,
+  useAddServiceMutation,
   useGetSingleServicesQuery,
-  useGetCartsServicesQuery,
-  useDeleteProductMutation,
-  useUpdateProductMutation,
+  useGetAvailableServicesQuery,
+  useDeleteServiceMutation,
+  useUpdateServiceMutation,
 } = serviceApi;

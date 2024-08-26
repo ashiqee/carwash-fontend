@@ -13,7 +13,7 @@ const Navbar = () => {
   const user = useAppSelector(selectCurrentUser);
 
 
-  const handleSubmitSearch=(data)=>{
+  const handleSubmitSearch=(data:string)=>{
     console.log(data);
     
   }
@@ -28,8 +28,8 @@ const Navbar = () => {
       menuPath:'/about-us'
     },
     {
-      menuLabel:"Service",
-      menuPath:'/service'
+      menuLabel:"Services",
+      menuPath:'/services'
     },
     {
       menuLabel:"Booking",

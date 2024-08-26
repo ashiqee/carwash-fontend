@@ -58,7 +58,7 @@ of your vehicle's surfaces.`,
             alt=""
           />
 
-          <div className="absolute top-14 left-[5%] xl:px-8  w-full 2xl:container 2xl:mx-auto text-3xl">
+          <div className="absolute top-14 2xl:left-[5%] xl:px-8  w-full 2xl:container 2xl:mx-auto text-3xl">
             <h3 className="text-center text-white font-bold text-6xl">
               Full-Service While You Wait
             </h3>

@@ -2,28 +2,21 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../shared/Navbar';
 import Footer from '../shared/Footer';
 
-
 const MainLayout = () => {
-const isLoading =false;
+  const isLoading = false;
   return (
     <>
-     
-       
-        {isLoading ? (
-          <>
-           Loading ....
-          </>
-        ) : (
-            <div className="min-h-screen">
-         
-<Navbar/>
+      {isLoading ? (
+        <>Loading ....</>
+      ) : (
+        <div className=" flex flex-col justify-between min-h-screen">
+          <div>
+            <Navbar />
             <Outlet />
-        <Footer/>
-           
-            </div>
-        )}
-     
-    
+          </div>
+          <Footer />
+        </div>
+      )}
     </>
   );
 };

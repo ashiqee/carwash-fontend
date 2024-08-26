@@ -1,5 +1,7 @@
+import CARButton from "@/components/ui/CARButton";
 import { IServices } from "@/interface/interface";
 import { useGetServicesQuery } from "@/redux/features/services/servicesApi";
+import { Link } from "react-router-dom";
 
 
 const ServicesSection = () => {
@@ -21,20 +23,25 @@ const ServicesSection = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6  items-center">
             {
                 servicesData?.slice(0,6).map((service: IServices,i:number)=>(
-                    <div  className='w-full  h-70 text-center  rounded-bl-[80px] rounded-tl-[80px] rounded-tr-[10px] p-4 shadow-2xl bg-slate-900/15 rounded-br-[20px] ' key={i}>
+                    <div  className='w-full hover:shadow-2xl h-70 text-center  rounded-bl-[80px] rounded-tl-[80px] rounded-tr-[10px] p-4 shadow-md bg-slate-900/15 rounded-br-[20px] ' key={i}>
                     <div  className='w-full h-70 text-center rounded-bl-[80px] overflow-hidden rounded-tl-[80px] rounded-tr-[10px]  bg-button-gradient  rounded-br-[20px] flex flex-col justify-center' key={i}>
                       
-                      <img className="object-cover   " src="https://i.postimg.cc/vTSHVw2c/Login-page.png" alt="" />
+                    <div className='h-60 overflow-hidden'>
+                     <img className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 " src="https://i.postimg.cc/vTSHVw2c/Login-page.png" alt="" />
                       
-                       <div className="py-4  text-white">
-                       <h3 className="xl:text-3xl text-2xl font-bold">{service.name}</h3>
-                       <p className="xl:text-xl">{service.description}</p>
+                     </div>
+                       <div className="py-4 text-right px-4 text-white">
+                       <h3 className="xl:text-2xl text-xl font-bold">{service.name}</h3>
+                       <p className="xl:text-md">{service.description}</p>
                      
                        </div>
                     </div>
                     </div>
                 ))
             }
+            </div>
+            <div className="flex justify-center py-10">
+                 <Link to='/services'><CARButton className="text-2xl" text="Explore More"/></Link>
             </div>
         </div>
     );

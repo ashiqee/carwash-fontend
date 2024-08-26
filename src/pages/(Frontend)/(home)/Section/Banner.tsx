@@ -77,7 +77,7 @@ const Banner = () => {
               <h3 className="2xl:text-6xl text-[14px] md:text-2xl text-center   xl:text-5xl font-bold uppercase">
                 {item.title}
               </h3>
-              <Link to="/products">
+              <Link to="/service">
               
                 <CARButton
                   text="BOOKED NOW"
