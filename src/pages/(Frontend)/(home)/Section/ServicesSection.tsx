@@ -2,7 +2,7 @@ import { IServices } from "@/interface/interface";
 import { useGetServicesQuery } from "@/redux/features/services/servicesApi";
 
 
-const FeaturedSection = () => {
+const ServicesSection = () => {
     const filter = {
         
     }
@@ -40,4 +40,4 @@ const FeaturedSection = () => {
     );
 };
 
-export default FeaturedSection;
+export default ServicesSection;
