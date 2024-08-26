@@ -12,12 +12,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-hover-card": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.6",
     "antd": "^5.20.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "embla-carousel-autoplay": "^8.1.6",
+    "embla-carousel-autoplay": "^8.2.0",
     "embla-carousel-react": "^8.2.0",
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",

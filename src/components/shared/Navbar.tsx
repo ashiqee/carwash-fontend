@@ -1,34 +1,49 @@
-import { logout, selectCurrentUser } from '@/redux/features/auths/authSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import {  selectCurrentUser } from '@/redux/features/auths/authSlice';
+import {  useAppSelector } from '@/redux/hook';
 import React from 'react';
 import CARButton from '../ui/CARButton';
-import { Link } from 'react-router-dom';
-import { Avatar, Input } from 'antd';
-import CRInput from '../form/CRInput';
-import CRForm from '../form/CRForm';
-import Search from '../ui/Search';
+import { Link, NavLink } from 'react-router-dom';
+import {  Input } from 'antd';
+
 import { Clock8, PhoneCall } from 'lucide-react';
 import Iconbg from '../ui/Iconbg';
+import HoverProfileMenu from './HoverProfileMenu';
 
 const Navbar = () => {
   const user = useAppSelector(selectCurrentUser);
-  const dispatch = useAppDispatch()
 
-  const avtImg= "https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png"
-
-
-  const handleLogout =()=>{
-    dispatch(logout())
-  }
 
   const handleSubmitSearch=(data)=>{
     console.log(data);
     
   }
 
+  const navMenu = [
+    {
+      menuLabel:"Home",
+      menuPath:'/'
+    },
+    {
+      menuLabel:"About us",
+      menuPath:'/about-us'
+    },
+    {
+      menuLabel:"Service",
+      menuPath:'/service'
+    },
+    {
+      menuLabel:"Booking",
+      menuPath:'/booking'
+    },
+    {
+      menuLabel:"Contact",
+      menuPath:'/contact'
+    },
+  ]
+
   return (
-    <div className="  ">
-      <div className="flex container mx-auto items-center py-4 justify-between">
+    <div className=" hidden lg:block ">
+      <div className="flex 2xl:container px-6 mx-auto items-center py-4 justify-between">
        <div>
        <h1 className="text-3xl text-primary  font-bold ">Car Wash</h1>
        <small>professional car wash</small>
@@ -57,13 +72,21 @@ const Navbar = () => {
     
 <CARButton text='Book an Appointment' className='text-xl p-2 px-10'/>
       </div>
-      <div className='bg-button-gradient py-3 text-white'>
+      <div className='bg-button-gradient py-3 px-6 text-white'>
        <div className='container flex justify-between items-center mx-auto'>
-        <ul className='flex gap-6'>
-            <li>Home</li>
-            <li>Home</li>
-            <li>Home</li>
-            <li>Home</li>
+        <ul className='flex gap-20'>
+
+          {
+            navMenu.map((item,i)=>(
+             <NavLink className={({isActive})=> 
+            isActive ? 'bg-slate-400 text-gray-100 animate-press duration-1000  px-3 font-medium rounded-xl p-0.5' : "px-3 font-medium rounded-xl p-0.5"
+            } key={i} to={item.menuPath}> 
+             {item.menuLabel}
+             </NavLink>
+
+            ))
+          }
+           
         </ul>
         
         <div className="flex gap-4 items-center">
@@ -80,8 +103,8 @@ const Navbar = () => {
               </div>
            
            </form>
-          {user ?  <Avatar className='border border-white ' src={avtImg} /> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
-          {user ? <button onClick={handleLogout}>Sign Out</button> : ''}
+          {user ?  <HoverProfileMenu user={user}/> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
+          
         </div>
        </div>
       </div>

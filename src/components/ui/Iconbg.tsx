@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 interface IIconbg{
     className?:string;
-    icon: ReactElement;
+    icon?: ReactElement;
 }
 
 const Iconbg: React.FC<IIconbg> = ({className,icon}) => {
