@@ -1,7 +1,7 @@
-import React from 'react';
+
 import Blue_waves from '../svg/Blue_waves';
 import Iconbg from '../ui/Iconbg';
-import { Facebook, Instagram, Mail, Twitch, Twitter, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Mail,  Twitter, Youtube } from 'lucide-react';
 import { Input } from 'antd';
 
 const Footer = () => {

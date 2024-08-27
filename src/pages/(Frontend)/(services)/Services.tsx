@@ -1,9 +1,7 @@
-import CRForm from '@/components/form/CRForm';
-import CRSelect from '@/components/form/CRSelect';
+
 import PageBanner from '@/components/shared/PageBanner';
 import { IServices } from '@/interface/interface';
 import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
-import { Input } from 'antd';
 import {
   Select,
   SelectContent,
@@ -12,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Search from '@/components/ui/Search';
 import { Clock } from 'lucide-react';

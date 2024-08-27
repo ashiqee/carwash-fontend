@@ -5,7 +5,6 @@ import { useLoginMutation } from '@/redux/features/auths/authApi';
 import { setUser, TUser } from '@/redux/features/auths/authSlice';
 import { useAppDispatch } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 

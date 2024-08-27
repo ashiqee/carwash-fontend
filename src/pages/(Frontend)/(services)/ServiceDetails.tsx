@@ -4,7 +4,7 @@ import PageBanner from '@/components/shared/PageBanner';
 import CARButton from '@/components/ui/CARButton';
 import { useGetAvailableServicesQuery, useGetSingleServicesQuery } from '@/redux/features/services/servicesApi';
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -17,7 +17,7 @@ const ServiceDetails = () => {
         date:selectDate
     })
 
-    console.log(selectDate);
+
     
     // const toastId = toast('Loading..')
     
@@ -31,7 +31,8 @@ const ServiceDetails = () => {
     
 const service = data?.data;
 
-const handleDateSubmit =(date)=>{
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const handleDateSubmit =(date:any)=>{
    
     const year = date.slot.$y;
     const month= String(date.slot.$M+1).padStart(2,'0');
@@ -74,7 +75,8 @@ toast.success('Loaded data done !', { duration:1000})
         !serviceSlot?.success ? <p className='text-3xl text-center w-full'>Sorry! Not available slot for This services </p>
         : <div className='grid grid-cols-1  gap-6'>
         {
-            serviceSlots?.map((slot,i)=>(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            serviceSlots?.map((slot:any,i:number)=>(
                <div className='flex justify-between hover:shadow-xl  border p-6 shadow-md text-center items-center ' key={i}>
              <div>
              <h2>

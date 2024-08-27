@@ -1,5 +1,5 @@
 import Blue_waves from '@/components/svg/Blue_waves';
-import React from 'react';
+
 
 const FeaturesSection = () => {
   const featureds = [

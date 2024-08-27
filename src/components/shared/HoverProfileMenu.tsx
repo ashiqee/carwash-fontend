@@ -6,9 +6,13 @@ import {
 } from '@/components/ui/hover-card';
 import { Avatar } from 'antd';
 import { useAppDispatch } from '@/redux/hook';
-import { logout } from '@/redux/features/auths/authSlice';
+import { logout, TUser} from '@/redux/features/auths/authSlice';
 
-const HoverProfileMenu = ({user}) => {
+interface IHoverProfileMenu{
+  user:TUser;
+}
+
+const HoverProfileMenu: React.FC<IHoverProfileMenu> = ({user}) => {
 
     const dispatch = useAppDispatch()
 
