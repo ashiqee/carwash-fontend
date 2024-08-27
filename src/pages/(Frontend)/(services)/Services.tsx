@@ -1,66 +1,241 @@
+import CRForm from '@/components/form/CRForm';
+import CRSelect from '@/components/form/CRSelect';
 import PageBanner from '@/components/shared/PageBanner';
 import { IServices } from '@/interface/interface';
 import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
 import { Input } from 'antd';
-import { ArrowBigRight, ArrowRight } from 'lucide-react';
-import React from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Search from '@/components/ui/Search';
+import { Clock } from 'lucide-react';
+
+export interface TFilterValues {
+  searchTerm: string;
+  sortByPrice: string;
+  servicelevel:string[];
+}
 
 const Services = () => {
-    const filter = {
-        
-    }
-    const {data:services} = useGetServicesQuery(filter)
+  const initialFilterValues: TFilterValues = {
+    searchTerm: '',
+    sortByPrice: '',
+    servicelevel:[]
+  };
+  const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
+  const [levels,setLevel]=useState<string[]>([]);
 
-    const servicesData = services?.data
-    
-    
-    return (
-        <div>
-            <PageBanner  pageName={"All Services"}/>
-            {/* Serivice  */}
-            <div className='flex gap-6 my-10 container'>
-{/* sidebar */}
-<div className='w-1/3 space-y-6'>
-<div className=' h-fit text-white p-4 rounded-xl bg-button-gradient'>
-<label htmlFor="">Search</label>
-<Input type='text' placeholder='search'/>
-    
-</div>
-<img className='rounded-xl' src='https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/gradient-free-car-wash-flyer-template-mt0a4t581ce51c.webp'/>
-<img className='rounded-xl' src='https://img.freepik.com/free-vector/24h-car-wash-template_23-2147498052.jpg'/>
-</div>
+  const { data: services } = useGetServicesQuery(filters);
 
-            <div className="grid grid-cols-1 h-fit md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6  items-center">
-            {
-                servicesData?.map((service: IServices,i:number)=>(
-                    <div  className='w-full  h-70 text-center  rounded-bl-[80px] rounded-tl-[80px] rounded-tr-[10px] p-4 shadow-2xl bg-slate-900/15 rounded-br-[20px] ' key={i}>
-                   <Link to={service._id}>
-                   <div  className='w-full h-70 text-center rounded-bl-[80px] overflow-hidden rounded-tl-[80px] rounded-tr-[10px]  bg-button-gradient  rounded-br-[20px] flex flex-col justify-center' key={i}>
-                      
-                      <div className='h-48 overflow-hidden'>
-                      <img className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 " src="https://i.postimg.cc/vTSHVw2c/Login-page.png" alt="" />
-                       
-                      </div>
-                      <div className='flex items-center px-3.5 justify-between'>
-                         <Link className='rounded-full border-none shadow-lg p-3 ml-4 hover:bg-gray-400/50 text-white  bg-primary/65' to={service._id}>
-                         <ArrowRight />
-                         </Link>
+  const servicesData = services?.data;
+
+  const sortOptions = [
+    {
+      value: 'priceAsc',
+      label: 'Price: Low to High',
+    },
+    {
+      value: 'priceDesc',
+      label: 'Price: High to Low',
+    },
+    {
+      value: 'durationAsc',
+      label: 'Duration: Shortest to Longest',
+    },
+    {
+      value: 'durationDesc',
+      label: 'Duration: Longest to Shortest',
+    },
+  ];
+
+  const handleSortFilter = (value: string) => {
+    setFilters((prevValues) => ({
+      ...prevValues,
+      sortByPrice: value,
+    }));
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSearterm = (data: any) => {
+    const value = data.value;
+    setFilters((prevValues) => ({
+      ...prevValues,
+      searchTerm: value,
+    }));
+  };
+  console.log(levels);
+  console.log(filters);
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleCheckBox =(data:any)=>{
+    
+    setLevel((prevChecked)=>(
+    prevChecked.includes(data.name) ? prevChecked.filter((item)=>item!==data.name)
+    :[...prevChecked,data.name]
+    ))
+
+    setFilters((prevValues) => ({
+        ...prevValues,
+        servicelevel: levels.includes(data.name)
+        ? prevValues.servicelevel.filter((lvl)=>lvl !== data.name)
+        : [...prevValues.servicelevel,data.name],
+      }));    
+  }
+
+  const handleReset = () => {
+    setFilters({
+      searchTerm: '',
+      sortByPrice: '',
+      servicelevel:[]
+    });
+  };
+  return (
+    <div>
+      <PageBanner pageName={'All Services'} />
+      {/* Serivice  */}
+      <div className="flex gap-6 my-10 container">
+        {/* sidebar */}
+        <div className="w-72 space-y-6 ">
+          <div className=" h-fit text-white p-4 space-y-6 rounded-xl shadow-md hover:shadow-2xl bg-button-gradient">
+            <form onChange={(e) => handleSearterm(e.target)} action="">
+              <Search />
+            </form>
+            <div>
+              <div>
+                <p className="font-semibold text-lg mb-2">
+                  Filter by Service Level
+                </p>
+
+            <form onChange={(e)=>handleCheckBox(e.target)} action="">
+            <div className="flex gap-2 items-center">
+                  <input type="checkbox" name="Standard"  id="standard" />
+                  <label htmlFor="standard">Standard</label>
+                </div>
+
+                <div className="flex gap-2 items-center">
+                  <input type="checkbox" name="Premium" id="premium" />
+                  <label htmlFor="premium">Premium</label>
+                </div>
+
+                <div className="flex gap-2 items-center">
+                  <input type="checkbox" name="Deluxe" id="deluxe" />
+                  <label htmlFor="deluxe">Deluxe</label>
+                </div>
+
+                <div className="flex gap-2 items-center">
+                  <input type="checkbox" name="Express" id="express" />
+                  <label htmlFor="express">Express</label>
+                </div>
+
+                <div className="flex gap-2 items-center">
+                  <input type="checkbox" name="Eco" id="eco" />
+                  <label htmlFor="eco">Eco-Friendly</label>
+                </div>
+            </form>
+              </div>
+              {filters && (
+                <button
+                  onClick={handleReset}
+                  className="p-2 bg-primary/75 rounded-xl mt-5 hover:bg-blue-400"
+                  type="button"
+                >
+                  Clear filter
+                </button>
+              )}
+            </div>
+          </div>
+          <img
+            className="rounded-xl"
+            src="https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/gradient-free-car-wash-flyer-template-mt0a4t581ce51c.webp"
+          />
+          <img
+            className="rounded-xl"
+            src="https://img.freepik.com/free-vector/24h-car-wash-template_23-2147498052.jpg"
+          />
+        </div>
+
+        {/* Services all  */}
+        <div className='w-full'>
+          {/* sort bar  */}
+          <div className="flex justify-between items-center mb-5">
+            <p>Showing 1–8 of 14 results</p>
+            <div className="flex gap-2 items-center">
+              {filters.sortByPrice && (
+                <button
+                  onClick={handleReset}
+                  className="p-2 bg-primary/5"
+                  type="button"
+                >
+                  Clear filter
+                </button>
+              )}
+              <Select onValueChange={handleSortFilter}>
+                <SelectTrigger className="w-40 shadow-lg border-2 border-primary ">
+                  <SelectValue placeholder="Sort By Price or Duration" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions?.map((item, i) => (
+                    <SelectItem key={i} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 h-fit md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6  items-center">
+            {servicesData?.map((service: IServices, i: number) => (
+              <div
+                className="w-full  h-70 text-center  rounded-bl-[10px] rounded-tl-[80px] rounded-tr-[10px] p-4 shadow-2xl bg-slate-900/15 rounded-br-[20px] "
+                key={i}
+              >
+                <Link to={service._id}>
+                  <div
+                    className="w-full h-70 relative text-center rounded-bl-[10px] overflow-hidden rounded-tl-[80px] rounded-tr-[10px]  bg-button-gradient  rounded-br-[20px] flex flex-col justify-center"
+                    key={i}
+                  >
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 "
+                        src="https://i.postimg.cc/vTSHVw2c/Login-page.png"
+                        alt=""
+                      />
+                    </div>
+                    {service?.serviceLevel && (
+                      <p className="absolute rounded-bl-md top-0 right-0   bg-primary/55 p-0.5  text-[14px] w-fit text-center px-2 text-white rounded-tr-xl">
+                        {service?.serviceLevel}
+                      </p>
+                    )}
+                    <div className="flex items-center px-2.5 justify-between">
+                      <p className="rounded-full flex-col flex justify-center items-center border-none shadow-lg p-3 hover:bg-gray-400/50 text-white  bg-primary/65">
+                        <span>
+                          <Clock />
+                        </span>
+                        {service.duration}min
+                      </p>
                       <div className="py-4 text-right  text-white">
                         <h3 className="text-xl font-bold">{service.name}</h3>
                         <p className="xl:text-xl">{service.price}$</p>
-                      
-                        </div>
+                        {service.description.slice(0, 60)}
                       </div>
-                     </div>
-                   </Link>
                     </div>
-                ))
-            }
-            </div>
-            </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Services;

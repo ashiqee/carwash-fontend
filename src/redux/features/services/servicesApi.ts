@@ -8,10 +8,13 @@ const serviceApi = baseApi.injectEndpoints({
         const params = new URLSearchParams(
           filters,
         );
+        console.log("API IN",filters);
+        
         return `services?${params}`;
       },
       providesTags: ['services'],
     }),
+
     getSingleServices: builder.query({
       query: (id) => ({
         url: `/services/${id}`,

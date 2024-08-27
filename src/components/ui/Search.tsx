@@ -3,8 +3,8 @@ const Search = () => {
       <>
         <div className="flex items-center justify-center">
           <>
-            <div className="flex h-6">
-              <div className="flex w-7 items-center justify-center rounded-tl-md rounded-bl-md border-r border-gray-200 bg-white text-black">
+            <div className="flex h-8">
+              <div className="flex w-7 items-center justify-center rounded-tl-md rounded-bl-md  border-r border-gray-200 bg-white text-black">
                 <svg
                   viewBox="0 0 20 20"
                   aria-hidden="true"
@@ -15,19 +15,11 @@ const Search = () => {
               </div>
               <input
                 type="text"
-                className="w-full max-w-[130px] bg-white text-black pl-2 text-base outline-0"
-                placeholder=""
+                className="w-full  rounded-r-md bg-white text-black pl-2 text-base outline-0"
+                placeholder="search"
                 id=""
               />
-              <button className="border-none hover:bg-gradient-to-l
-        hover:from-red-500 
-        hover:via-red-800 
-        hover:to-red-900 
-        hover:bg-red-900/85
-        bg-gradient-to-l
-         from-green-700 via-green-800 to-green-900 bg-green-900/85 px-2  rounded-tr-md rounded-br-md text-white   transition-colors  font-semibold">
-                Search
-              </button>
+             
             </div>
           </>
         </div>
