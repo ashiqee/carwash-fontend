@@ -22,7 +22,7 @@ const ServiceDetails = () => {
     // const toastId = toast('Loading..')
     
     if(isLoading){
-      return  toast.loading('Loading...', { duration:2000})
+      return  <>Loading..</>
     }
 
     
