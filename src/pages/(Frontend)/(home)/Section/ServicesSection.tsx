@@ -5,12 +5,16 @@ import { Link } from "react-router-dom";
 
 
 const ServicesSection = () => {
-    const filter = {
-        
+    const filters = {
+        searchTerm: '',
+        sortByPrice: '',
+        servicelevel:[]
     }
-    const {data:services} = useGetServicesQuery(filter)
+    const { data: services } = useGetServicesQuery(filters);
 
     const servicesData = services?.data
+   
+    
     
     return (
         <div  className="2xl:container md:mx-6 mx-4 2xl:mx-auto ">

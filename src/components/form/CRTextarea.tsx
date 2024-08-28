@@ -1,4 +1,5 @@
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import { Controller } from 'react-hook-form';
 
 type TInputProps = {
@@ -11,14 +12,14 @@ type TInputProps = {
   size?:string;
 };
 
-const CRInput = ({ type, name, label, disabled,className,placeholder }: TInputProps) => {
+const CRTextarea = ({ type, name, label, disabled,className,placeholder }: TInputProps) => {
   return (
     <div className={className}>
       <Controller
         name={name}
         render={({ field }) => (
           <Form.Item label={label}>
-            <Input
+            <TextArea
               {...field}
               type={type}
               id={name}
@@ -33,4 +34,4 @@ const CRInput = ({ type, name, label, disabled,className,placeholder }: TInputPr
   );
 };
 
-export default CRInput;
+export default CRTextarea;

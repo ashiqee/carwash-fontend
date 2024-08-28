@@ -1,3 +1,4 @@
+import CRCalendar from '@/components/form/CRCalendar';
 import CRDatePicker from '@/components/form/CRDatePicker';
 import CRForm from '@/components/form/CRForm';
 import PageBanner from '@/components/shared/PageBanner';
@@ -68,10 +69,18 @@ const ServiceDetails = () => {
         </div>
 
         <div className="my-10">
-          <div className="flex items-center justify-between">
-            <h2 className="text-4xl ">Service Slot</h2>
-            <CRForm onSubmit={handleDateSubmit}>
+          <div className="flex items-center justify-center py-5">
+            <h2 className="text-4xl font-bold">Service Slot</h2>
+            
+          </div>
+
+        
+          <div className='flex gap-6 '>
+         <div className='w-1/3'>
+         <CRForm onSubmit={handleDateSubmit}>
               <CRDatePicker name="slot" label="Filter with date"></CRDatePicker>
+           
+              <CRCalendar name="slot"/>
               <div className="flex w-full  gap-2">
                 <CARButton text="Filter" />
                 <Button className="py-3" onClick={() => setSelectDate(currentDate)}>
@@ -79,20 +88,19 @@ const ServiceDetails = () => {
                 </Button>
               </div>
             </CRForm>
-          </div>
-
-          {selectDate && <p>Filter date: {selectDate}</p>}
-          <div>
-            {!serviceSlot?.success ? (
+         </div>
+          <div className='w-full space-y-4'>
+          {selectDate && <p className='text-right'>Filter date: {selectDate}</p>}
+          {!serviceSlot?.success ? (
               <p className="text-3xl text-center w-full">
                 Sorry! Not available slot for This services{' '}
               </p>
             ) : (
-              <div className="grid grid-cols-1  gap-6">
+              <div className="grid grid-cols-2  gap-6">
                 {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                 serviceSlots?.map((slot: any, i: number) => (
                   <div
-                    className="flex justify-between hover:shadow-xl  border p-6 shadow-md text-center items-center "
+                    className="flex justify-between hover:shadow-xl  border p-6 shadow-md  items-center "
                     key={i}
                   >
                     <div>
@@ -101,7 +109,7 @@ const ServiceDetails = () => {
                       <img src="" alt="" />
                     </div>
 
-                    <div className="text-center ">
+                    <div className=" ">
                       <p>Start Time</p>
                       <p className="text-red-600">{slot.startTime}</p>
                     </div>
@@ -109,7 +117,9 @@ const ServiceDetails = () => {
                       <p>End Time</p>
                       <p className="text-red-600">{slot.endTime}</p>
                     </div>
-                    <div>${service.price}</div>
+                    <div>
+                    <p>Price</p>
+                        {service.price}৳</div>
                     <div>
                       {slot.isBooked === 'booked' ? (
                         <Button disabled>Already Booked</Button>
@@ -121,6 +131,7 @@ const ServiceDetails = () => {
                 ))}
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>
