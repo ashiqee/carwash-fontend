@@ -32,3 +32,8 @@ export interface TUserPath{
     element?: ReactNode;
     children?: TUserPath[];
   };
+
+  export interface CustomJwtPayload {
+    role?:string;
+    userEmail?:string;
+  }

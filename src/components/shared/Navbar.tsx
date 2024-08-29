@@ -1,4 +1,4 @@
-import {  selectCurrentUser } from '@/redux/features/auths/authSlice';
+import {  selectCurrentUser, useCurrentToken } from '@/redux/features/auths/authSlice';
 import {  useAppSelector } from '@/redux/hook';
 import CARButton from '../ui/CARButton';
 import { Link, NavLink } from 'react-router-dom';
@@ -7,9 +7,22 @@ import {  Input } from 'antd';
 import { Clock8, PhoneCall } from 'lucide-react';
 import Iconbg from '../ui/Iconbg';
 import HoverProfileMenu from './HoverProfileMenu';
+import { verifyToken } from '@/utils/verifyToken';
+import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
 
 const Navbar = () => {
-  const user = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(useCurrentToken);
+  let user;
+  if(token){
+      user= verifyToken(token);
+  }
+  
+  
+  const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
+
+  if (isLoading) {
+    return <>Loading..</>;
+  }
 
 
   const handleSubmitSearch=(data:string)=>{
@@ -38,6 +51,10 @@ const Navbar = () => {
       menuLabel:"Contact",
       menuPath:'/contact'
     },
+     {
+    menuLabel:"Dashboard",
+    menuPath:`/${user?.role}/dashboard`
+  },
   ]
 
   return (
@@ -102,7 +119,7 @@ const Navbar = () => {
               </div>
            
            </form>
-          {user ?  <HoverProfileMenu user={user}/> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
+          {user ?  <HoverProfileMenu user={userData}/> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
           
         </div>
        </div>

@@ -8,4 +8,4 @@ const RecentBookings = () => {
     );
 };
 
-export default RecentBookings;Boookings
+export default RecentBookings;

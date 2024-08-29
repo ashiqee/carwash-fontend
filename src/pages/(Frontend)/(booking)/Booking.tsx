@@ -12,15 +12,20 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
-import { selectCurrentUser } from '@/redux/features/auths/authSlice';
+import { useCurrentToken } from '@/redux/features/auths/authSlice';
 import { useAppSelector } from '@/redux/hook';
-import { Image, Input } from 'antd';
+import { verifyToken } from '@/utils/verifyToken';
+import { Image } from 'antd';
 import { Trash } from 'lucide-react';
 
 const Booking = () => {
-  const user = useAppSelector(selectCurrentUser);
-  console.log(user);
-
+  const token = useAppSelector(useCurrentToken);
+  let user;
+  if(token){
+      user= verifyToken(token);
+  }
+  
+  
   const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
 
   if (isLoading) {

@@ -7,19 +7,36 @@ import Signup from '@/pages/auth/Signup';
 import BackendLayout from '@/components/layout/BackendLayout';
 import { backendPageRoutes } from './backend.routes';
 import ErrorPage from '@/components/shared/ErrorPage';
+import { adminPaths } from './admin.routes';
+import { userPaths } from './user.routes';
+import ProtectRoute from './ProtectRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement:<ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: routeGenarator(frontendPageRoutes),
   },
   {
-    path: '/dashboard',
-    element: <BackendLayout />,
-    errorElement:<ErrorPage/>,
-    children: routeGenarator(backendPageRoutes),
+    path: '/admin',
+    element: (
+      <ProtectRoute role="admin">
+        <BackendLayout />
+      </ProtectRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: routeGenarator(adminPaths),
+  },
+  {
+    path: '/user',
+    element: (
+      <ProtectRoute role="user">
+        <BackendLayout />
+      </ProtectRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: routeGenarator(userPaths),
   },
   {
     path: '/login',

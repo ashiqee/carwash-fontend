@@ -1,8 +1,8 @@
 import { TSidebarItem, TUserPath } from '@/interface/interface';
-import React from 'react';
+
 import { NavLink } from 'react-router-dom';
 
-const sidebarGenarator = ((items:TUserPath[],role:string)) => {
+const SidebarGenarator = (items:TUserPath[],role:string) => {
   const sidebarItems = items.reduce((acc:TSidebarItem[],item)=>{
 if(item.path && item.name){
   acc.push({
@@ -13,8 +13,8 @@ if(item.path && item.name){
 
 if(item.children){
   acc.push({
-    key:item.name,
-    label: item.nam,
+    key:`${item.name}`,
+    label: item.name,
     children:item.children.map((child)=>{
       if(child.name){
         return{
@@ -34,4 +34,4 @@ return acc;
  
 };
 
-export default sidebarGenarator;
+export default SidebarGenarator;

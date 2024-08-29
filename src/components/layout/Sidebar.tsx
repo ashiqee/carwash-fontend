@@ -1,11 +1,11 @@
 import React from 'react';
 
-const PastBookings = () => {
+const Sidebar = () => {
     return (
         <div>
-            Pastbooking
+            
         </div>
     );
 };
 
-export default PastBookings;
+export default Sidebar;
