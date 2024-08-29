@@ -1,3 +1,4 @@
+
 import AboutUs from '@/pages/(Frontend)/(about-us)/AboutUs';
 import Booking from '@/pages/(Frontend)/(booking)/Booking';
 import Contact from '@/pages/(Frontend)/(contact)/Contact';
@@ -9,6 +10,7 @@ export const frontendPageRoutes = [
   {
     path: '/',
     element: <HomePage />,
+  
 
     children: [
       {

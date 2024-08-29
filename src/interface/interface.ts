@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 
 
 export interface IServices{
@@ -10,3 +11,24 @@ export interface IServices{
     duration:number;
     isDeleted: boolean;
 }
+
+
+export type TRoute = {
+    path: string;
+    element: ReactNode;
+  };
+export type TSidebarItem =
+  | {
+      key: string;
+      label: ReactNode;
+      children?: TSidebarItem[];
+    }
+  | undefined;
+
+
+export interface TUserPath{
+    name?: string;
+    path?: string;
+    element?: ReactNode;
+    children?: TUserPath[];
+  };

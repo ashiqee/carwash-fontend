@@ -9,9 +9,11 @@ type TInputProps = {
   className?:string;
   placeholder?:string;
   size?:string;
+  defaultValue?:string;
+  readonly?:boolean;
 };
 
-const CRInput = ({ type, name, label, disabled,className,placeholder }: TInputProps) => {
+const CRInput = ({ type, name, label, disabled,className,placeholder,defaultValue }: TInputProps) => {
   return (
     <div className={className}>
       <Controller
@@ -22,6 +24,8 @@ const CRInput = ({ type, name, label, disabled,className,placeholder }: TInputPr
               {...field}
               type={type}
               id={name}
+              
+              defaultValue={defaultValue}
               placeholder={placeholder}
               size="large"
               disabled={disabled}

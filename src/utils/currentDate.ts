@@ -6,5 +6,9 @@
 // const year = date.getFullYear();
 
 
-export const currentDate = new Date().toJSON().slice(0,10);
+export const currentDate = new Date().toLocaleDateString('en-CA',{
+    year:'numeric',
+    month:'2-digit',
+    day:'2-digit',
+});
 

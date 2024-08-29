@@ -16,8 +16,16 @@ endpoints:(builder)=>({
             method:"POST",
             body: userInfo,
         })
-    })
+    }),
 
+    getUserinfo: builder.query({
+        query:(userEmail)=>({
+            url:`/auth/user?userEmail=${userEmail}`,
+            method:"GET",
+
+        }),
+        providesTags: ['auth'],
+    })
 }),
 
 });
@@ -25,5 +33,5 @@ endpoints:(builder)=>({
 
 
 export const {
- useLoginMutation, useSignupMutation
+ useLoginMutation, useSignupMutation, useGetUserinfoQuery
 } = authApi;

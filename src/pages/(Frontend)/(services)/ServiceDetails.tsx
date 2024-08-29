@@ -8,7 +8,7 @@ import {
   useGetSingleServicesQuery,
 } from '@/redux/features/services/servicesApi';
 import { currentDate } from '@/utils/currentDate';
-import { Button } from 'antd';
+import { Button, Image } from 'antd';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 const ServiceDetails = () => {
   const { id } = useParams();
   console.log(currentDate);
-
+console.log(new Date().toJSON())
   const [selectDate, setSelectDate] = useState(currentDate);
   const { data, isLoading } = useGetSingleServicesQuery(id);
   const { data: serviceSlot } = useGetAvailableServicesQuery({
@@ -51,8 +51,8 @@ const ServiceDetails = () => {
       <div className="container my-10 shadow-xl p-10 rounded-xl">
         {/* Detail service  */}
         <div className='flex '>
-            <div className='w-full '>
-                <img className='w-full rounded-l-2xl' src="https://media.istockphoto.com/id/174942860/photo/tire-wash.jpg?s=612x612&w=0&k=20&c=IHqUkH8UZl1vyS02BAU5zbJ2xvE-_NMFwSXOgfr2jdI=" alt="" />
+            <div className='w-full overflow-hidden'>
+                <Image  className='w-full object-cover bg-primary/5 rounded-l-2xl' src="https://media.istockphoto.com/id/174942860/photo/tire-wash.jpg?s=612x612&w=0&k=20&c=IHqUkH8UZl1vyS02BAU5zbJ2xvE-_NMFwSXOgfr2jdI=" alt="" />
             </div>
           <div className='px-8 py-4 space-y-2 bg-primary/5 w-full rounded-r-2xl'>
           <div className='flex justify-between items-center '>
