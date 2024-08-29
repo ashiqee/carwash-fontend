@@ -18,6 +18,7 @@ const CRInput = ({ type, name, label, disabled,className,placeholder,defaultValu
     <div className={className}>
       <Controller
         name={name}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Form.Item label={label}>
             <Input
@@ -25,7 +26,7 @@ const CRInput = ({ type, name, label, disabled,className,placeholder,defaultValu
               type={type}
               id={name}
               
-              defaultValue={defaultValue}
+              
               placeholder={placeholder}
               size="large"
               disabled={disabled}

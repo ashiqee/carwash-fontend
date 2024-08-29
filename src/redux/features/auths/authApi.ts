@@ -25,6 +25,14 @@ endpoints:(builder)=>({
 
         }),
         providesTags: ['auth'],
+    }),
+    getAllUserinfo: builder.query({
+        query:()=>({
+            url:`/auth/users`,
+            method:"GET",
+
+        }),
+        providesTags: ['auth'],
     })
 }),
 
@@ -33,5 +41,8 @@ endpoints:(builder)=>({
 
 
 export const {
- useLoginMutation, useSignupMutation, useGetUserinfoQuery
+ useLoginMutation,
+  useSignupMutation,
+   useGetUserinfoQuery,
+   useGetAllUserinfoQuery
 } = authApi;

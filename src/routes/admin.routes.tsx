@@ -3,6 +3,7 @@ import RecentBookings from "@/pages/(Backend)/(Admin)/RecentBookings";
 import ServiceManagement from "@/pages/(Backend)/(Admin)/ServiceManagement";
 import SlotManagement from "@/pages/(Backend)/(Admin)/SlotManagement";
 import UserManagement from "@/pages/(Backend)/(Admin)/UserManagement";
+import AddNewService from "@/pages/(Backend)/Components/AddServiceModal";
 
 
 export const adminPaths =[
@@ -18,8 +19,19 @@ export const adminPaths =[
     },
     {
         name:"Service management",
-        path:'service-management',
-        element:<ServiceManagement/>
+        children:[
+            {
+                name:"Services Manage ",
+                path:'service-management',
+                element:<ServiceManagement/>,
+                
+            },
+            {
+                name:"Add New Service",
+                path:'add-new-servive',
+                element:<AddNewService/>
+            }
+        ]
     },
     {
         name:"Slot management",
@@ -28,7 +40,7 @@ export const adminPaths =[
     },
     {
         name:"User management",
-        path:'slot-management',
+        path:'user-management',
         element:<UserManagement/>
     },
 ]

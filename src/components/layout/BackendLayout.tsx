@@ -7,7 +7,8 @@ import { adminPaths } from '@/routes/admin.routes';
 import { userPaths } from '@/routes/user.routes';
 import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import HoverProfileMenu from '../shared/HoverProfileMenu';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -52,16 +53,22 @@ if(token){
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
+        <div className="demo-logo-vertical " />
+        <Link to='/'>
         <h2 className='text-2xl font-bold text-white text-center py-5'>CAR WASH</h2>
+        </Link>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={sidebarItems} />
       </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+      <Layout >
+       
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+         <div className='flex justify-between mx-4 items-center'>
+         <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>{pathname}</Breadcrumb.Item>
           </Breadcrumb>
+
+          <HoverProfileMenu user={user}/>
+         </div>
           <div
             style={{
               padding: 24,
@@ -74,7 +81,7 @@ if(token){
           </div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-         Car Wash ©{new Date().getFullYear()} Created by Ant UED
+         Car Wash ©{new Date().getFullYear()} Created by Ashiq
         </Footer>
       </Layout>
     </Layout>

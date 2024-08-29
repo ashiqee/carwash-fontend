@@ -18,11 +18,7 @@ const Navbar = () => {
   }
   
   
-  const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
-
-  if (isLoading) {
-    return <>Loading..</>;
-  }
+ 
 
 
   const handleSubmitSearch=(data:string)=>{
@@ -119,7 +115,7 @@ const Navbar = () => {
               </div>
            
            </form>
-          {user ?  <HoverProfileMenu user={userData}/> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
+          {user ?  <HoverProfileMenu user={user}/> : <Link to={'/login'}><CARButton text="Sign In" /></Link>}
           
         </div>
        </div>

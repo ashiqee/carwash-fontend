@@ -3,25 +3,27 @@ import TextArea from 'antd/es/input/TextArea';
 import { Controller } from 'react-hook-form';
 
 type TInputProps = {
-  type: string;
+  type?: string;
   name: string;
   label?: string;
   disabled?: boolean;
   className?:string;
   placeholder?:string;
+  defaultValue?:string;
   size?:string;
 };
 
-const CRTextarea = ({ type, name, label, disabled,className,placeholder }: TInputProps) => {
+const CRTextarea = ({  name, label, disabled,className,placeholder,defaultValue }: TInputProps) => {
   return (
     <div className={className}>
       <Controller
         name={name}
+        defaultValue={defaultValue}
         render={({ field }) => (
           <Form.Item label={label}>
             <TextArea
               {...field}
-              type={type}
+             
               id={name}
               placeholder={placeholder}
               size="large"

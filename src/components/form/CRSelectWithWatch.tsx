@@ -1,23 +1,37 @@
-
 import { Form, Select } from 'antd';
-import { Controller } from 'react-hook-form';
+import { useEffect } from 'react';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
-type TCRSelectProps = {
+type TPHSelectProps = {
   label: string;
   name: string;
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
   disabled?: boolean;
   mode?: 'multiple' | undefined;
-  className?:string;
-  defaultValue?:string;
+  onValueChange: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CRSelect = ({ label, name, options, disabled,className,defaultValue, mode }: TCRSelectProps) => {
+const CRSelectWithWatch = ({
+  label,
+  name,
+  options,
+  disabled,
+  mode,
+  onValueChange,
+}: TPHSelectProps) => {
+  const method = useFormContext();
+  const inputValue = useWatch({
+    control: method.control,
+    name,
+  });
+
+  useEffect(() => {
+    onValueChange(inputValue);
+  }, [inputValue]);
+
   return (
-  <div className={className}>
-      <Controller
+    <Controller
       name={name}
-      defaultValue={defaultValue}
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
@@ -25,7 +39,6 @@ const CRSelect = ({ label, name, options, disabled,className,defaultValue, mode 
             style={{ width: '100%' }}
             {...field}
             options={options}
-           value={field.value || defaultValue}
             size="large"
             disabled={disabled}
           />
@@ -33,8 +46,7 @@ const CRSelect = ({ label, name, options, disabled,className,defaultValue, mode 
         </Form.Item>
       )}
     />
-  </div>
   );
 };
 
-export default CRSelect;
+export default CRSelectWithWatch;

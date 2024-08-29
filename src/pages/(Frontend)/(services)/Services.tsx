@@ -68,8 +68,7 @@ const Services = () => {
       searchTerm: value,
     }));
   };
-  console.log(levels);
-  console.log(filters);
+  
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCheckBox =(data:any)=>{
