@@ -21,8 +21,7 @@ const baseQuery = fetchBaseQuery({
       console.log("set Header");
       
     }
-    console.log(headers);
-    
+ 
 
     return headers;
   },
@@ -65,7 +64,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // api.dispatch(logout());
+      api.dispatch(logout());
     }
   }
 
@@ -76,6 +75,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ['bookings', 'services', 'auth'],
+  tagTypes: ['bookings', 'services', 'auth','slots'],
   endpoints: () => ({}),
 });

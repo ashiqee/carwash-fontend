@@ -1,43 +1,21 @@
 import CRDatePicker from '@/components/form/CRDatePicker';
 import CRForm from '@/components/form/CRForm';
-import CRInput from '@/components/form/CRInput';
-import CRSelect from '@/components/form/CRSelect';
-import CRTextarea from '@/components/form/CRTextarea';
 import CRTimePicker from '@/components/form/CRTimePicker';
 import CARButton from '@/components/ui/CARButton';
 import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
-import { Select } from 'antd';
+
 import CRSelectWithWatch from './../../../components/form/CRSelectWithWatch';
 import { useState } from 'react';
 import { IServices } from '@/interface/interface';
 import { Image } from 'antd';
 import StartnEndTimeConverter from '../utils/StartnEndTimeConverter';
 import { toast } from 'sonner';
+import { useCreateServiceSlotsMutation } from '@/redux/features/services/slotsApi';
+import { Link } from 'react-router-dom';
 
-const serviceLevel = [
-  {
-    value: 'Standard',
-    label: 'Standard',
-  },
-  {
-    value: 'Premium',
-    label: 'Premium',
-  },
-  {
-    value: 'Deluxe',
-    label: 'Deluxe',
-  },
-  {
-    value: 'Express',
-    label: 'Express',
-  },
-  {
-    value: 'Eco',
-    label: 'Eco',
-  },
-];
 
 const CreateSlots = () => {
+  const [createServiceSlots]= useCreateServiceSlotsMutation()
   const { data: servicesDatas, isLoading } = useGetServicesQuery(undefined);
   const [service, setService] = useState<IServices|null>(null);
   const [slotTime,setSlotTime]=useState({
@@ -68,8 +46,9 @@ const CreateSlots = () => {
 
 
 
-  const handleEditDataSubmit = (data: any) => {
-    console.log(data);
+  const handleEditDataSubmit = async (data: any) => {
+    const toastId = toast.loading('creating slots');
+
     const year = data.date.$y;
     const month = String(data.date.$M + 1).padStart(2, '0');
     const day = String(data.date.$D).padStart(2, '0');
@@ -86,9 +65,14 @@ const CreateSlots = () => {
         endTime: endTime.time 
     }
     console.log('Click Form', soltData);
+    const res = await createServiceSlots(soltData);
+    if(res.data.success){
+      toast.success(`${res.data.message}`, { id: toastId, duration: 2000 });
+
+    }
+    console.log(res);
   };
 
-  console.log(service?.name);
   
  
   return (
@@ -124,7 +108,7 @@ const CreateSlots = () => {
         </div>
         
     
-        <CARButton text="Add New Service" />
+        <CARButton text="Create New Slot" />
       </CRForm>
 
       <div>
@@ -133,7 +117,7 @@ const CreateSlots = () => {
             service && <div className='p-10 space-y-4'>
                 <Image className='max-w-60 rounded-lg' src={service?.images}/>
              <div className='text-md '>
-                <h2 className='text-xl font-bold'>{service?.name}</h2>
+                <Link to={`/services/${service._id}`}><h2 className='text-xl font-bold'>{service?.name}</h2></Link>
              <p>{service?.serviceLevel}</p>
                 <p>Price: {service?.price}</p>
                 <p>Duration: {service?.duration}</p>

@@ -12,8 +12,9 @@ const onPanelChange = (value: Dayjs, mode: CalendarProps<Dayjs>['mode']) => {
 type TCalendarPickerProps = {
     name: string;
     label?: string;
+    onChange?:(date:Dayjs)=>void;
   };
-const CRCalendar: React.FC<TCalendarPickerProps> = ({ name, label }) => {
+const CRCalendar: React.FC<TCalendarPickerProps> = ({ name, label,onChange }) => {
   const { token } = theme.useToken();
 
   const disablePastDate = (current: Dayjs)=>{
@@ -34,9 +35,16 @@ const CRCalendar: React.FC<TCalendarPickerProps> = ({ name, label }) => {
             <div style={wrapperStyle}>
               <Calendar
                 {...field}
+                value={field.value}
                 fullscreen={false}
                 onPanelChange={onPanelChange}
                 disabledDate={disablePastDate}
+                onSelect={(date)=>{
+                  field.onChange(date);
+                  if(onChange){
+                    onChange(date);
+                  }
+                }}
               />
             </div>
           </Form.Item>

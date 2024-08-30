@@ -13,7 +13,7 @@ if(item.path && item.name){
 
 if(item.children){
   acc.push({
-    key:`${item.name}`,
+    key:`${item.name}+1`,
     label: item.name,
     children:item.children.map((child)=>{
       if(child.name){

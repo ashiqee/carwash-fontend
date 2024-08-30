@@ -36,9 +36,11 @@ console.log(new Date().toJSON())
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateSubmit = (date: any) => {
-    const year = date.slot.$y;
-    const month = String(date.slot.$M + 1).padStart(2, '0');
-    const day = String(date.slot.$D).padStart(2, '0');
+    console.log(date);
+    
+    const year = date.$y;
+    const month = String(date.$M + 1).padStart(2, '0');
+    const day = String(date.$D).padStart(2, '0');
 
     const formatDate = `${year}-${month}-${day}`;
     setSelectDate(formatDate);
@@ -78,11 +80,11 @@ console.log(new Date().toJSON())
           <div className='flex gap-6 '>
          <div className='w-1/3'>
          <CRForm onSubmit={handleDateSubmit}>
-              <CRDatePicker name="slot" label="Filter with date"></CRDatePicker>
+              {/* <CRDatePicker name="slot" label="Filter with date"></CRDatePicker> */}
            
-              <CRCalendar name="slot"/>
+              <CRCalendar onChange={handleDateSubmit} label='Select date' name="slot"/>
               <div className="flex w-full  gap-2">
-                <CARButton text="Filter" />
+                {/* <CARButton  text="Filter" /> */}
                 <Button className="py-3" onClick={() => setSelectDate(currentDate)}>
                   Clear Filter
                 </Button>
