@@ -22,10 +22,11 @@ export interface TFilterValues {
 }
 
 const Services = () => {
+  
   const initialFilterValues: TFilterValues = {
     searchTerm: '',
     sortByPrice: '',
-    servicelevel:[]
+    servicelevel: [],
   };
   const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
   const [levels,setLevel]=useState<string[]>([]);
@@ -71,20 +72,18 @@ const Services = () => {
   
   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleCheckBox =(data:any)=>{
-    
-    setLevel((prevChecked)=>(
-    prevChecked.includes(data.name) ? prevChecked.filter((item)=>item!==data.name)
-    :[...prevChecked,data.name]
-    ))
+  const handleCheckBox = (data: any) => {
+   
 
     setFilters((prevValues) => ({
         ...prevValues,
-        servicelevel: levels.includes(data.name)
-        ? prevValues.servicelevel.filter((lvl)=>lvl !== data.name)
-        : [...prevValues.servicelevel,data.name],
-      }));    
-  }
+        servicelevel: prevValues.servicelevel.includes(data.name)
+            ? prevValues.servicelevel.filter((lvl) => lvl !== data.name)
+            : [...prevValues.servicelevel, data.name],
+    }));
+}
+console.log(filters.servicelevel);
+
 
   const handleReset = () => {
     setFilters({

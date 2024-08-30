@@ -4,6 +4,7 @@ import ServiceManagement from "@/pages/(Backend)/(Admin)/ServiceManagement";
 import SlotManagement from "@/pages/(Backend)/(Admin)/SlotManagement";
 import UserManagement from "@/pages/(Backend)/(Admin)/UserManagement";
 import AddNewService from "@/pages/(Backend)/Components/AddServiceModal";
+import CreateSlots from "@/pages/(Backend)/Components/CreateSlots";
 
 
 export const adminPaths =[
@@ -35,9 +36,20 @@ export const adminPaths =[
     },
     {
         name:"Slot management",
-        path:'slot-management',
-        element:<SlotManagement/>
+        children:[
+            {
+                name:"Slot management",
+                path:'slot-management',
+                element:<SlotManagement/>
+            },
+            {
+                name:"Create slots",
+                path:'create-slots',
+                element:<CreateSlots/>
+            }
+        ]
     },
+  
     {
         name:"User management",
         path:'user-management',

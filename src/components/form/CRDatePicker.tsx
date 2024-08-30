@@ -5,9 +5,10 @@ import dayjs, { Dayjs } from 'dayjs';
 type TDatePickerProps = {
   name: string;
   label?: string;
+  disabled?:boolean;
 };
 
-const CRDatePicker = ({ name, label }: TDatePickerProps) => {
+const CRDatePicker = ({ name, label,disabled }: TDatePickerProps) => {
   const disablePastDate = (current: Dayjs)=>{
     return current && current < dayjs().startOf('day')
   }
@@ -17,7 +18,7 @@ const CRDatePicker = ({ name, label }: TDatePickerProps) => {
         name={name}
         render={({ field }) => (
           <Form.Item label={label}>
-            <DatePicker {...field} size="large" style={{ width: '100%' }} disabledDate={disablePastDate} />
+            <DatePicker {...field} size="large" style={{ width: '100%' }} disabled={disabled} disabledDate={disablePastDate} />
           </Form.Item>
         )}
       />

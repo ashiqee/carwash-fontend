@@ -7,6 +7,7 @@ type TPHSelectProps = {
   name: string;
   options: { value: string; label: string; disabled?: boolean }[] | undefined;
   disabled?: boolean;
+  className?:string;
   mode?: 'multiple' | undefined;
   onValueChange: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -17,6 +18,7 @@ const CRSelectWithWatch = ({
   options,
   disabled,
   mode,
+  className,
   onValueChange,
 }: TPHSelectProps) => {
   const method = useFormContext();
@@ -30,7 +32,8 @@ const CRSelectWithWatch = ({
   }, [inputValue]);
 
   return (
-    <Controller
+    <div className={className} >
+      <Controller
       name={name}
       render={({ field, fieldState: { error } }) => (
         <Form.Item label={label}>
@@ -46,6 +49,7 @@ const CRSelectWithWatch = ({
         </Form.Item>
       )}
     />
+    </div>
   );
 };
 

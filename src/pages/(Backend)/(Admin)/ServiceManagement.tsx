@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { EllipsisVertical, Plus, Trash } from 'lucide-react';
+import { EllipsisVertical, Plus } from 'lucide-react';
 import { Image } from 'antd';
 import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
 import { TFilterValues } from '@/pages/(Frontend)/(services)/Services';

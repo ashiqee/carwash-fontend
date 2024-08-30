@@ -27,13 +27,28 @@ endpoints:(builder)=>({
         providesTags: ['auth'],
     }),
     getAllUserinfo: builder.query({
-        query:()=>({
-            url:`/auth/users`,
-            method:"GET",
-
+        query: (payload:any) => {
+       
+            const params = new URLSearchParams(
+              payload,
+            );
+                                  
+            return `/auth/users?${params}`
+          },
+          providesTags: ['auth'],
         }),
-        providesTags: ['auth'],
-    })
+    
+      
+
+    updateUserRole: builder.mutation({
+        query: (data) => ({
+          url: `/auth/user/${data.userId}`,
+          method: 'PUT',
+          body: data,
+        }),
+        invalidatesTags: ['auth'],
+      }),
+  
 }),
 
 });
@@ -44,5 +59,6 @@ export const {
  useLoginMutation,
   useSignupMutation,
    useGetUserinfoQuery,
-   useGetAllUserinfoQuery
+   useGetAllUserinfoQuery,
+   useUpdateUserRoleMutation
 } = authApi;

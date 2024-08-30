@@ -9,7 +9,7 @@ const serviceApi = baseApi.injectEndpoints({
           filters,
         );
                
-        return `services?${params}`;
+        return `/services?${params}`;
       },
       providesTags: ['services'],
     }),
