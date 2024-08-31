@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -17,17 +17,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { EllipsisVertical, Plus } from 'lucide-react';
-import { Image } from 'antd';
+import { Button, Image } from 'antd';
 import { TFilterValues } from '@/pages/(Frontend)/(services)/Services';
-import CARButton from '@/components/ui/CARButton';
+
 import Search from '@/components/ui/Search';
 import EditModal from '../Components/EditModal';
 import { Link } from 'react-router-dom';
-import { IServices } from '@/interface/interface';
-import { useGetAllServiceSlotsQuery, useUpdateSlotsMutation } from '@/redux/features/services/slotsApi';
+import {
+  useGetAllServiceSlotsQuery,
+  useUpdateSlotsMutation,
+} from '@/redux/features/services/slotsApi';
 import { toast } from 'sonner';
-
-
+import CreateSlots from '../Components/CreateSlots';
 
 const SlotManagement = () => {
   const initialFilterValues: TFilterValues = {
@@ -36,49 +37,50 @@ const SlotManagement = () => {
     servicelevel: [],
   };
   const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
-  
-  const { data: serviceSlots, isLoading } = useGetAllServiceSlotsQuery(undefined);
-  const [updateSlots]=useUpdateSlotsMutation()
-  const [isModalOpen, setIsModalOpen] = useState(false);
-   const [editServiceData, setServiceData] = useState(null);
-   const [slotStatus,setSlotStatus]= useState(true)
 
-  const openModal = (data:any) => {
-    setServiceData(data)
+  const { data: serviceSlots, isLoading } =
+    useGetAllServiceSlotsQuery(undefined);
+  const [updateSlots] = useUpdateSlotsMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setAddModal] = useState(false);
+  const [editServiceData, setServiceData] = useState(null);
+  const [slotStatus, setSlotStatus] = useState(true);
+
+  const openModal = (data: any) => {
+    setServiceData(data);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setAddModal(false);
   };
 
   if (isLoading) {
     return <>Loading...</>;
   }
 
-  const handleSlotStatus = async (data:{id:string,status:string})=>{
+  const handleSlotStatus = async (data: { id: string; status: string }) => {
     const toastId = toast.loading('updating slots');
 
     let isBooked;
-    if(data.status === "available"){
-      isBooked = "canceled"
-    }else{
-      isBooked ='available'
+    if (data.status === 'available') {
+      isBooked = 'canceled';
+    } else {
+      isBooked = 'available';
     }
 
     const payload = {
-      id:data.id,
-      isBooked
-    }
-    const res= await updateSlots(payload)
-    if(res.data.success){
+      id: data.id,
+      isBooked,
+    };
+    const res = await updateSlots(payload);
+    if (res.data.success) {
       toast.success(`${res.data.message}`, { id: toastId, duration: 2000 });
-
     }
-    
-    setSlotStatus(!slotStatus)
-  }
 
+    setSlotStatus(!slotStatus);
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {
@@ -92,9 +94,13 @@ const SlotManagement = () => {
     <div>
       <div className="flex justify-between">
         <h3 className="text-2xl font-bold">Slots Management</h3>
-        <Link to={`/admin/create-slots`}>
-        <CARButton icon={<Plus />} text="Create New Slots" />
-        </Link>
+        <Button
+          className="bg-button-gradient hover:bg-primary text-white "
+          onClick={() => setAddModal(true)}
+        >
+          <Plus />
+          Create New Service Slots
+        </Button>
       </div>
 
       {/* //service table */}
@@ -120,7 +126,7 @@ const SlotManagement = () => {
             }
           </TableHeader>
           <TableBody>
-            {serviceSlots?.data?.map((slots:any, i:number) => (
+            {serviceSlots?.data?.map((slots: any, i: number) => (
               <TableRow key={slots._id}>
                 <TableCell className="font-medium">{i + 1}</TableCell>
                 <TableCell className="flex gap-2">
@@ -130,25 +136,43 @@ const SlotManagement = () => {
                     alt=""
                   />
                   <div>
-                    <Link to={`/services/${slots?.service?._id}`}><p className="text-md">{slots?.service?.name}</p></Link>
+                    <Link to={`/services/${slots?.service?._id}`}>
+                      <p className="text-md">{slots?.service?.name}</p>
+                    </Link>
                     <p className="text-sm">{slots?.service?.serviceLevel}</p>
                     <p className="text-sm">Price: {slots?.service?.price}</p>
-                    <p className="text-sm">Duration: {slots?.service?.duration}</p>
-                 
+                    <p className="text-sm">
+                      Duration: {slots?.service?.duration}
+                    </p>
                   </div>
                 </TableCell>
                 <TableCell>
                   <p className="text-sm">{slots.date}</p>
                 </TableCell>
-                <TableCell className="text-right">{slots.startTime} - {slots.endTime}
-
+                <TableCell className="text-right">
+                  {slots.startTime} - {slots.endTime}
                 </TableCell>
-                <TableCell className="text-right">{slots.isBooked === "booked" 
-                ? <button disabled className='border bg-primary/20 p-1 px-2 rounded-md '>Booked</button>
-                 : 
-                 <button  onClick={()=>handleSlotStatus({id:slots?._id,status:slots.isBooked})} className={`border ${slots.isBooked  === "canceled" ? "bg-red-700" : "bg-button-gradient"} text-white p-1 px-2 rounded-md `}>{slots.isBooked}</button>
-                }
-
+                <TableCell className="text-right">
+                  {slots.isBooked === 'booked' ? (
+                    <button
+                      disabled
+                      className="border bg-primary/20 p-1 px-2 rounded-md "
+                    >
+                      Booked
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        handleSlotStatus({
+                          id: slots?._id,
+                          status: slots.isBooked,
+                        })
+                      }
+                      className={`border ${slots.isBooked === 'canceled' ? 'bg-red-700' : 'bg-button-gradient'} text-white p-1 px-2 rounded-md `}
+                    >
+                      {slots.isBooked}
+                    </button>
+                  )}
                 </TableCell>
                 <TableCell className="font-medium  text-right ">
                   <DropdownMenu>
@@ -158,25 +182,28 @@ const SlotManagement = () => {
                     <DropdownMenuContent>
                       <DropdownMenuLabel>Action Menu</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={()=>openModal(slots)}>
+                      <DropdownMenuItem onClick={() => openModal(slots)}>
                         update Slot
                       </DropdownMenuItem>
                       <DropdownMenuItem>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                 
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         {isModalOpen && (
-        <EditModal
-          data={editServiceData}
-          isOpen={!!editServiceData}
-          onClose={closeModal}
-        />
-      )}
+          <EditModal
+            data={editServiceData}
+            isOpen={!!editServiceData}
+            onClose={closeModal}
+          />
+        )}
+
+        {isAddModalOpen && (
+          <CreateSlots isOpen={isAddModalOpen} onClose={closeModal} />
+        )}
       </div>
     </div>
   );

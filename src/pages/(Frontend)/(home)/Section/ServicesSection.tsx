@@ -28,18 +28,21 @@ const ServicesSection = () => {
             {
                 servicesData?.slice(0,6).map((service: IServices,i:number)=>(
                     <div  className='w-full hover:shadow-2xl h-70 text-center  rounded-bl-[80px] rounded-tl-[80px] rounded-tr-[10px] p-4 shadow-md bg-slate-900/15 rounded-br-[20px] ' key={i}>
-                    <div  className='w-full h-70 text-center rounded-bl-[80px] overflow-hidden rounded-tl-[80px] rounded-tr-[10px]  bg-button-gradient  rounded-br-[20px] flex flex-col justify-center' key={i}>
+                  <Link to={`/services/${service._id}`}>
+                  <div  className='w-full h-70 text-center rounded-bl-[80px] overflow-hidden rounded-tl-[80px] rounded-tr-[10px]  bg-button-gradient  rounded-br-[20px] flex flex-col justify-center' key={i}>
                       
-                    <div className='h-60 overflow-hidden'>
-                     <img className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 " src="https://i.postimg.cc/vTSHVw2c/Login-page.png" alt="" />
-                      
-                     </div>
-                       <div className="py-4 text-right px-4 text-white">
-                       <h3 className="xl:text-2xl text-xl font-bold">{service.name}</h3>
-                       <p className="xl:text-md">{service.description}</p>
-                     
+                      <div className='h-60 overflow-hidden'>
+                       <img className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 "
+                        src={service.images} alt="" />
+                        
                        </div>
-                    </div>
+                         <div className="py-4 text-right px-4 text-white">
+                         <h3 className="xl:text-2xl text-xl font-bold">{service.name}</h3>
+                         <p className="xl:text-md">{service?.description?.slice(0,140)} <span>{service?.description?.length >140 && "..."}</span></p>
+                       
+                         </div>
+                      </div>
+                  </Link>
                     </div>
                 ))
             }

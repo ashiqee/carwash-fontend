@@ -201,7 +201,7 @@ console.log(filters.servicelevel);
                     <div className="h-48 overflow-hidden">
                       <img
                         className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 "
-                        src="https://i.postimg.cc/vTSHVw2c/Login-page.png"
+                        src={service.images}
                         alt=""
                       />
                     </div>
@@ -219,7 +219,7 @@ console.log(filters.servicelevel);
                       </p>
                       <div className="py-4 text-right  text-white">
                         <h3 className="text-xl font-bold">{service.name}</h3>
-                        <p className="xl:text-xl">{service.price}$</p>
+                        <p className="xl:text-xl">{service.price}৳</p>
                         {service.description.slice(0, 60)}
                       </div>
                     </div>

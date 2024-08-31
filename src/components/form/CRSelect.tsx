@@ -22,12 +22,13 @@ const CRSelect = ({ label, name, options, disabled,className,defaultValue, mode 
         <Form.Item label={label}>
           <Select
             mode={mode}
-            style={{ width: '100%' }}
+            style={{ width: '100%', zIndex:1050 }}
             {...field}
             options={options}
            value={field.value || defaultValue}
             size="large"
             disabled={disabled}
+            dropdownStyle={{ zIndex: 1050 }}
           />
           {error && <small style={{ color: 'red' }}>{error.message}</small>}
         </Form.Item>

@@ -9,14 +9,16 @@ const Footer = () => {
     <div>
       <div className="relative">
         <Blue_waves />
-        <div className="bg-button-gradient relative overflow-hidden  max-h-[350px]">
+        <div className="bg-button-gradient px-6  relative overflow-hidden  xl:max-h-[350px]">
           <img
-            className="hover:translate-x-5  overflow-hidden object-cover translate-x-2 duration-1000 hover:ease-in-out hover:duration-1000"
+            className="hover:translate-x-5  overflow-hidden object-cover translate-x-2 
+            duration-1000 hover:ease-in-out hover:duration-1000"
             src="/src/assets/svg/bg.svg"
             alt=""
           />
 
-          <div className="absolute top-14 left-[5%] xl:px-8 flex justify-between  w-full 2xl:container 2xl:mx-auto text-white">
+          <div className="absolute border top-0 xl:top-14 xl:left-[5%] xl:px-8 xl:flex justify-between  
+          w-full 2xl:container 2xl:mx-auto text-white">
             {/* contact us  */}
             <div className="space-y-4">
               <h3 className="text-3xl  font-bold">Contact Us</h3>

@@ -4,6 +4,7 @@ import CARButton from '@/components/ui/CARButton';
 import { useSignupMutation } from '@/redux/features/auths/authApi';
 
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 
 // interface ISignup{
@@ -20,10 +21,19 @@ const Signup = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onSubmit = async (data:any)=>{
+        const toastId = toast.loading('Sign up in process');
+
         const userInfo = {...data,role:"user"}
-        console.log(userInfo);
-        const res = await signup(userInfo)
-        console.log(res);
+      
+        try{
+            const res = await signup(userInfo)
+            if(res.data.success){
+                toast.success(res.data.message,{id:toastId,duration:2000})
+            }
+        }catch (err) {
+      toast.error(`Something went wrong`, { id: toastId, duration: 2000 });
+    }
+        
         
         
     }

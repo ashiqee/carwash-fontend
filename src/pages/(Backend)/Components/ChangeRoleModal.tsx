@@ -1,8 +1,4 @@
-import CRForm from '@/components/form/CRForm';
-import CRInput from '@/components/form/CRInput';
-import CRSelect from '@/components/form/CRSelect';
-import CRSelectWithWatch from '@/components/form/CRSelectWithWatch';
-import CRTextarea from '@/components/form/CRTextarea';
+
 import CARButton from '@/components/ui/CARButton';
 import {
   Dialog,

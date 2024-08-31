@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 
 import {  Layout, Menu, theme } from 'antd';
 import { TUser, useCurrentToken } from '@/redux/features/auths/authSlice';
-import SidebarGenarator from '@/utils/SidebarGenarator';
+
 import { adminPaths } from '@/routes/admin.routes';
 import { userPaths } from '@/routes/user.routes';
 import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import HoverProfileMenu from '../shared/HoverProfileMenu';
+import SidebarGenarator from '@/utils/sidebarGenarator';
 
 
 const {  Content, Footer, Sider } = Layout;
@@ -62,7 +63,7 @@ if(token){
       <Layout >
        
         <Content style={{ margin: '0 16px' }}>
-         <div className='flex justify-between mx-4 items-center'>
+         <div className='flex py-2 justify-between mx-4 items-center'>
          {pathname}
          {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>{pathname}</Breadcrumb.Item>

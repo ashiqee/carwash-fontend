@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -16,31 +16,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { EllipsisVertical, Plus } from 'lucide-react';
-import { Button, Image } from 'antd';
-import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
-import { TFilterValues } from '@/pages/(Frontend)/(services)/Services';
+import { EllipsisVertical } from 'lucide-react';
+import { Image } from 'antd';
 import Search from '@/components/ui/Search';
-import EditModal from '../Components/EditModal';
-import { Link } from 'react-router-dom';
-import { IServices } from '@/interface/interface';
-import DeleteServiceModal from '../Components/DeleteServiceModal';
-import AddNewService from '../Components/AddServiceModal';
+import { useGetAllUserinfoQuery } from '@/redux/features/auths/authApi';
+import ChangeRoleModal from '../Components/ChangeRoleModal';
 
 
 
-const ServiceManagement = () => {
-  const initialFilterValues: TFilterValues = {
+type TUserFilterValue={
+    searchTerm:String;
+}
+const UserBookings = () => {
+  const initialFilterValues: TUserFilterValue = {
     searchTerm: '',
-    sortByPrice: '',
-    servicelevel: [],
+    
   };
-  const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
-  
-  const { data: servicesData, isLoading } = useGetServicesQuery(filters);
+  const [filters, setFilters] = useState<TUserFilterValue>(initialFilterValues);
+  const {data:userDatas ,isLoading}= useGetAllUserinfoQuery(filters)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddModalOpen, setAddModal] = useState(false);
-   const [editServiceData, setServiceData] = useState(null);
+   const [editUserData, setServiceData] = useState(null);
 
   const openModal = (data:any) => {
     setServiceData(data)
@@ -49,13 +44,12 @@ const ServiceManagement = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setAddModal(false)
   };
 
   if (isLoading) {
     return <>Loading...</>;
   }
-
+ 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {
@@ -65,31 +59,20 @@ const ServiceManagement = () => {
       searchTerm: value,
     }));
   };
-
-
-
-
   return (
     <div>
       <div className="flex justify-between">
-        <h3 className="text-2xl font-bold">Service Management</h3>
-        {/* <Link to={`/admin/add-new-servive`}>
-        <CARButton icon={<Plus />} text="Add New Service" />
-        </Link> */}
-       <Button className='bg-button-gradient text-white ' onClick={()=>setAddModal(true)}>
-       <Plus/>
-       Add New Service
-       </Button>
-        
-      </div>
-
-      {/* //service table */}
-      <div>
+        <h3 className="text-2xl font-bold">User Bookings</h3>
         <div className="border w-60 my-5 rounded-lg">
           <form onChange={(e) => handleSearterm(e.target)} action="">
             <Search />
           </form>
         </div>
+      </div>
+
+      {/* //User table */}
+      <div>
+     
 
         <Table>
           <TableCaption>List of your recent booked service.</TableCaption>
@@ -97,32 +80,33 @@ const ServiceManagement = () => {
             {
               <TableRow>
                 <TableHead className="w-[100px]">#</TableHead>
-                <TableHead>Service Details</TableHead>
-                <TableHead>Duration</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
+                <TableHead>User Name</TableHead>
+                <TableHead>Contact Info</TableHead>
+                <TableHead className="text-right">Role</TableHead>
                 <TableHead className="w-[100px]">Action</TableHead>
               </TableRow>
             }
           </TableHeader>
           <TableBody>
-            {servicesData?.data?.map((service:IServices, i:number) => (
-              <TableRow key={service._id}>
+            {userDatas?.data?.map((usData:any, i:number) => (
+              <TableRow key={usData._id}>
                 <TableCell className="font-medium">{i + 1}</TableCell>
                 <TableCell className="flex gap-2">
                   <Image
                     className="max-w-32 rounded-xl"
-                    src={service.images}
+                    src={usData.images}
                     alt=""
                   />
                   <div>
-                   <Link to={`/services/${service._id}`}> <p className="text-xl">{service.name}</p></Link>
-                    <p className="text-sm">{service.serviceLevel}</p>
+                    <p className="text-xl">{usData.name}</p>
+                
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm">{service.duration}min</p>
+                  <p className="text-sm">{usData.email}</p>
+                  <p className="text-sm">0{usData.phone}</p>
                 </TableCell>
-                <TableCell className="text-right">{service.price}</TableCell>
+                <TableCell className="text-right">{usData.role}</TableCell>
                 <TableCell className="font-medium  text-right ">
                   <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -131,15 +115,10 @@ const ServiceManagement = () => {
                     <DropdownMenuContent>
                       <DropdownMenuLabel>Action Menu</DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className='p-2 text-sm' onClick={()=>openModal(service)}>
-                        Edit
+                      <DropdownMenuItem onClick={()=>openModal(usData)}>
+                        Change user role
                       </DropdownMenuItem>
-                      <DeleteServiceModal data={{
-                        id:service._id,
-                        name:service.name,
-                        price:service.price
-                      }}/>
-                      
+                      <DropdownMenuItem>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                  
@@ -149,24 +128,15 @@ const ServiceManagement = () => {
           </TableBody>
         </Table>
         {isModalOpen && (
-        <EditModal
-          data={editServiceData}
-          isOpen={!!editServiceData}
+        <ChangeRoleModal
+          data={editUserData}
+          isOpen={!!editUserData}
           onClose={closeModal}
         />
       )}
-
-
-{
-  <AddNewService
-  isOpen={isAddModalOpen}
-  onClose={closeModal}
-  />
-}
-    
       </div>
     </div>
   );
 };
 
-export default ServiceManagement;
+export default UserBookings;

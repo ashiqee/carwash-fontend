@@ -46,15 +46,24 @@ console.log(new Date().toJSON())
     setSelectDate(formatDate);
   };
 
-  toast.success('Loaded data done !', { duration: 1000 });
+  serviceSlots && toast.success('Loaded data done !', { duration: 1000 });
+
+
+const handleBookedASlot =(id)=>{
+
+  console.log(id);
+  
+}
+
+
   return (
     <div>
       <PageBanner pageName={service?.name} />
-      <div className="container my-10 shadow-xl p-10 rounded-xl">
+      <div className="container my-10 shadow-xl  md:p-10 rounded-xl">
         {/* Detail service  */}
-        <div className='flex '>
+        <div className='xl:flex '>
             <div className='w-full overflow-hidden'>
-                <Image  className='w-full object-cover bg-primary/5 rounded-l-2xl' src="https://media.istockphoto.com/id/174942860/photo/tire-wash.jpg?s=612x612&w=0&k=20&c=IHqUkH8UZl1vyS02BAU5zbJ2xvE-_NMFwSXOgfr2jdI=" alt="" />
+                <Image  className='w-full xl:min-h-[600px] object-cover bg-primary/5 rounded-l-2xl' src={service.images} alt="" />
             </div>
           <div className='px-8 py-4 space-y-2 bg-primary/5 w-full rounded-r-2xl'>
           <div className='flex justify-between items-center '>
@@ -77,12 +86,12 @@ console.log(new Date().toJSON())
           </div>
 
         
-          <div className='flex gap-6 '>
-         <div className='w-1/3'>
+          <div className='xl:flex gap-6 '>
+         <div className='xl:w-1/3 mx-auto w-full'>
          <CRForm onSubmit={handleDateSubmit}>
               {/* <CRDatePicker name="slot" label="Filter with date"></CRDatePicker> */}
            
-              <CRCalendar onChange={handleDateSubmit} label='Select date' name="slot"/>
+              <CRCalendar  onChange={handleDateSubmit} label='Select date' name="slot"/>
               <div className="flex w-full  gap-2">
                 {/* <CARButton  text="Filter" /> */}
                 <Button className="py-3" onClick={() => setSelectDate(currentDate)}>
@@ -98,35 +107,45 @@ console.log(new Date().toJSON())
                 Sorry! Not available slot for This services{' '}
               </p>
             ) : (
-              <div className="grid grid-cols-2  gap-6">
+              <div className="grid xl:grid-cols-2  gap-6">
                 {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                 serviceSlots?.map((slot: any, i: number) => (
                   <div
-                    className="flex justify-between hover:shadow-xl  border p-6 shadow-md  items-center "
+                    className=" space-y-3 justify-between hover:scale-105 hover:duration-1000 rounded-md hover:shadow-xl  border p-6 shadow-md  items-center "
                     key={i}
                   >
+                    <div className='flex  items-center justify-between gap-1.5'>
                     <div>
                       <h2>{service?.name}</h2>
                       {slot.date}
                       <img src="" alt="" />
                     </div>
 
-                    <div className=" ">
+                 <div className='flex gap-4 text-center'>
+                 <div className="  bg-primary/5 px-3 rounded-lg p-1 ">
                       <p>Start Time</p>
                       <p className="text-red-600">{slot.startTime}</p>
                     </div>
-                    <div>
+                    <div className="  bg-primary/5 px-3 rounded-lg p-1 ">
                       <p>End Time</p>
                       <p className="text-red-600">{slot.endTime}</p>
                     </div>
+                 </div>
+                   
+                   
+                      
+                    </div>
+                    <div className='flex justify-between border'>
                     <div>
-                    <p>Price</p>
-                        {service.price}৳</div>
-                    <div>
-                      {slot.isBooked === 'booked' ? (
+                    <p>Price: {service.price}৳</p>
+                        </div>
+                    {slot.isBooked === 'booked' ? (
                         <Button disabled>Already Booked</Button>
                       ) : (
-                        <CARButton text="Book This Service" />
+                        <button onClick={()=>handleBookedASlot(
+                          {slot:slot._id,
+                            service:service._id
+                        })} className='bg-button-gradient w-48 p-1 px-2 hover:scale-105 hover:duration-1000 text-white rounded-md'> Booked Now</button>
                       )}
                     </div>
                   </div>
