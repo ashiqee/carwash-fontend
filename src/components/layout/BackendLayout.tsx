@@ -11,6 +11,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import HoverProfileMenu from '../shared/HoverProfileMenu';
 import SidebarGenarator from '@/utils/SidebarGenarator';
 import ImmediateSlot from '@/pages/(Backend)/(User)/components/ImmediateSlot';
+import ScrollTop from '../shared/ScrollToTop';
 
 
 
@@ -88,6 +89,7 @@ if(token){
         </Content>
         <Footer style={{ textAlign: 'center' }}>
          Car Wash ©{new Date().getFullYear()} Created by Ashiq
+         <ScrollTop/>
         </Footer>
       </Layout>
     </Layout>

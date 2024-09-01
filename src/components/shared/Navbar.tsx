@@ -3,11 +3,11 @@ import {  useAppSelector } from '@/redux/hook';
 import CARButton from '../ui/CARButton';
 import { Link, NavLink } from 'react-router-dom';
 import {  Input } from 'antd';
-
 import { Clock8, PhoneCall } from 'lucide-react';
 import Iconbg from '../ui/Iconbg';
 import HoverProfileMenu from './HoverProfileMenu';
 import { verifyToken } from '@/utils/verifyToken';
+import ScrollTop from './ScrollToTop';
 
 
 
@@ -123,6 +123,7 @@ const Navbar = () => {
         </div>
        </div>
       </div>
+    <ScrollTop/>
     </div>
   );
 };
