@@ -8,48 +8,28 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { EllipsisVertical } from 'lucide-react';
+
 import { Image } from 'antd';
 import Search from '@/components/ui/Search';
-import { useGetAllUserinfoQuery } from '@/redux/features/auths/authApi';
-import ChangeRoleModal from '../Components/ChangeRoleModal';
 
+import { useGetBookingsQuery } from '@/redux/features/bookings/BookingApi';
+import { Link } from 'react-router-dom';
 
-
-type TUserFilterValue={
-    searchTerm:String;
-}
+type TUserFilterValue = {
+  searchTerm: String;
+};
 const RecentBookings = () => {
   const initialFilterValues: TUserFilterValue = {
     searchTerm: '',
-    
   };
   const [filters, setFilters] = useState<TUserFilterValue>(initialFilterValues);
-  const {data:userDatas ,isLoading}= useGetAllUserinfoQuery(filters)
-  const [isModalOpen, setIsModalOpen] = useState(false);
-   const [editUserData, setServiceData] = useState(null);
-
-  const openModal = (data:any) => {
-    setServiceData(data)
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const { data: bookingDatas, isLoading } = useGetBookingsQuery(filters);
 
   if (isLoading) {
     return <>Loading...</>;
   }
- 
+
+  console.log(bookingDatas);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {
@@ -72,70 +52,57 @@ const RecentBookings = () => {
 
       {/* //User table */}
       <div>
-     
-
         <Table>
           <TableCaption>List of your recent booked service.</TableCaption>
           <TableHeader>
             {
               <TableRow>
                 <TableHead className="w-[100px]">#</TableHead>
-                <TableHead>User Name</TableHead>
-                <TableHead>Contact Info</TableHead>
-                <TableHead className="text-right">Service Details</TableHead>
-                <TableHead className="text-right">Slots Details</TableHead>
-                <TableHead className="w-[100px]">Action</TableHead>
+                <TableHead>Customer info</TableHead>
+                <TableHead>Service Details</TableHead>
+                <TableHead className="">Slots Details</TableHead>
+
+                <TableHead className="w-[150px]">Payment Details</TableHead>
               </TableRow>
             }
           </TableHeader>
           <TableBody>
-            {userDatas?.data?.map((usData:any, i:number) => (
-              <TableRow key={usData._id}>
+            {bookingDatas?.data?.map((booked: any, i: number) => (
+              <TableRow key={booked._id}>
                 <TableCell className="font-medium">{i + 1}</TableCell>
-                <TableCell className="flex gap-2">
-                  <Image
-                    className="max-w-32 rounded-xl"
-                    src={usData.images}
-                    alt=""
-                  />
-                  <div>
-                    <p className="text-xl">{usData.name}</p>
-                
-                  </div>
+                <TableCell className="">
+                  <p className="text-sm">{booked.customer.name}</p>
+                  <p className="text-sm">{booked.customer.email}</p>
+                  <p className="text-sm">0{booked.customer.phone}</p>
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm">{usData.email}</p>
-                  <p className="text-sm">0{usData.phone}</p>
+                  <div>
+                    <Link to={`/services/${booked.service._id}`}>
+                      <p className="">{booked.service.name}</p>
+                    </Link>
+                    <Image
+                      className="max-w-20 rounded-xl"
+                      src={booked.service.images}
+                      alt=""
+                    />
+                  </div>
                 </TableCell>
-                <TableCell className="text-right">{usData.role}</TableCell>
-                <TableCell className="text-right">{usData.role}</TableCell>
-                <TableCell className="font-medium  text-right ">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <EllipsisVertical />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>Action Menu</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={()=>openModal(usData)}>
-                        Change user role
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                 
+                <TableCell className="">
+                  <p>{booked.slot.date}</p>
+                  <p>
+                    {booked.slot.startTime} - {booked.slot.endTime}
+                  </p>
+                </TableCell>
+                <TableCell className="">
+                  <p className="p-2 bg-button-gradient w-fit text-right  rounded-lg text-white">
+                    {booked.paymentStatus}
+                  </p>
+                  <p>{booked.transactionId}</p>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        {isModalOpen && (
-        <ChangeRoleModal
-          data={editUserData}
-          isOpen={!!editUserData}
-          onClose={closeModal}
-        />
-      )}
       </div>
     </div>
   );

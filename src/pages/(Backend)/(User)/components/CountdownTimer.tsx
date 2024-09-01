@@ -13,8 +13,7 @@ const Countdown = ({countdownTargetDate}) => {
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(countdownTargetDate));
 
 
-  // console.log(totalPlayer);
-  //   console.log(timeLeft.days);
+ 
 
   useEffect(() => {
     const timer = setInterval(() => {

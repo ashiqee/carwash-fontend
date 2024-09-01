@@ -24,7 +24,7 @@ const ImmediateSlot = () => {
       const immediateSlot = sortedBookings?.[0]
 
     return (
-        <div className=' border p-2 rounded-lg'>
+        <div className='shadow absolute right-1/3 p-2 -translate-y-20 hover:-translate-y-5 duration-1000 hover:bg-button-gradient hover:text-white  rounded-lg'>
             <div className='flex justify-between items-center'>
             <Link to={`/services/${immediateSlot.service._id}`}> <p>{immediateSlot.service.name}</p></Link>
             <p>StartTime: {immediateSlot.slot.startTime}</p>

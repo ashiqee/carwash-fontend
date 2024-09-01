@@ -82,8 +82,6 @@ const Services = () => {
             : [...prevValues.servicelevel, data.name],
     }));
 }
-console.log(filters.servicelevel);
-
 
   const handleReset = () => {
     setFilters({
@@ -96,9 +94,9 @@ console.log(filters.servicelevel);
     <div>
       <PageBanner pageName={'All Services'} />
       {/* Serivice  */}
-      <div className="flex gap-6 my-10 container">
+      <div className="md:flex px-6 2xl:px-0 gap-6 my-10 container">
         {/* sidebar */}
-        <div className="w-72 space-y-6 ">
+        <div className="md:w-72 space-y-6 translate-x-96 md:translate-x-0 fixed  z-50 md:sticky duration-700 md:hover:translate-x-0 hover:translate-x-20">
           <div className=" h-fit text-white p-4 space-y-6 rounded-xl shadow-md hover:shadow-2xl bg-button-gradient">
             <form onChange={(e) => handleSearterm(e.target)} action="">
               <Search />
@@ -148,11 +146,11 @@ console.log(filters.servicelevel);
             </div>
           </div>
           <img
-            className="rounded-xl"
+            className="rounded-xl hidden md:block"
             src="https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/gradient-free-car-wash-flyer-template-mt0a4t581ce51c.webp"
           />
           <img
-            className="rounded-xl"
+            className="rounded-xl  hidden md:block"
             src="https://img.freepik.com/free-vector/24h-car-wash-template_23-2147498052.jpg"
           />
         </div>
@@ -160,7 +158,7 @@ console.log(filters.servicelevel);
         {/* Services all  */}
         <div className='w-full'>
           {/* sort bar  */}
-          <div className="flex justify-between items-center mb-5">
+          <div className="flex justify-between items-center my-6 md:my-0 md:pb-6 mb-5">
             <p>Showing 1–8 of 14 results</p>
             <div className="flex gap-2 items-center">
               {filters.sortByPrice && (
@@ -200,7 +198,7 @@ console.log(filters.servicelevel);
                   >
                     <div className="h-48 overflow-hidden">
                       <img
-                        className=" object-cover overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 "
+                        className=" object-cover min-h-56 overflow-hidden hover:scale-125 hover:duration-1000 hover:fade-in-35 "
                         src={service.images}
                         alt=""
                       />
@@ -211,18 +209,19 @@ console.log(filters.servicelevel);
                       </p>
                     )}
                     <div className="flex items-center px-2.5 justify-between">
-                      <p className="rounded-full flex-col flex justify-center items-center border-none shadow-lg p-3 hover:bg-gray-400/50 text-white  bg-primary/65">
+                      <p className="rounded-full flex-col flex justify-center items-center border-none shadow-lg p-2 text-[12px] hover:scale-110 hover:bg-gray-400/50 text-white  bg-primary/65">
                         <span>
                           <Clock />
                         </span>
                         {service.duration}min
                       </p>
                       <div className="py-4 text-right  text-white">
-                        <h3 className="text-xl font-bold">{service.name}</h3>
+                        <h3 className="text-[14px] font-bold">{service.name}</h3>
                         <p className="xl:text-xl">{service.price}৳</p>
-                        {service.description.slice(0, 60)}
+                        
                       </div>
                     </div>
+                  <p className='pb-4 text-left px-4 text-white'>    {service.description.slice(0, 35)} {service.description.length > 35 && "..."}</p>
                   </div>
                 </Link>
               </div>

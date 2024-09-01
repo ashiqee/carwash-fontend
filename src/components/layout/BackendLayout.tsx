@@ -54,8 +54,8 @@ if(token){
 
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+    <Layout  style={{ minHeight: '100vh' }}>
+      <Sider  collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical " />
         <Link to='/'>
         <h2 className='text-2xl font-bold text-white text-center py-5'>CAR WASH</h2>
@@ -70,7 +70,9 @@ if(token){
          {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>{pathname}</Breadcrumb.Item>
           </Breadcrumb> */}
-<ImmediateSlot/>
+<div>
+{user?.role === "user" && <ImmediateSlot/>}
+</div>
           <HoverProfileMenu user={user}/>
          </div>
           <div

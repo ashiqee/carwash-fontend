@@ -7,9 +7,9 @@ import { Input } from 'antd';
 const Footer = () => {
   return (
     <div>
-      <div className="relative">
+      <div className="relative ">
         <Blue_waves />
-        <div className="bg-button-gradient px-6  relative overflow-hidden  xl:max-h-[350px]">
+        <div className="bg-button-gradient px-6  relative overflow-hidden  max-h-[350px]">
           <img
             className="hover:translate-x-5  overflow-hidden object-cover translate-x-2 
             duration-1000 hover:ease-in-out hover:duration-1000"
@@ -17,10 +17,10 @@ const Footer = () => {
             alt=""
           />
 
-          <div className="absolute border top-0 xl:top-14 xl:left-[5%] xl:px-8 xl:flex justify-between  
+          <div className="absolute  mx-auto md:w-[90vw] top-0 md:top-14 left-[5%] xl:px-8 md:flex justify-between  
           w-full 2xl:container 2xl:mx-auto text-white">
             {/* contact us  */}
-            <div className="space-y-4">
+            <div className="space-y-4 hidden md:block">
               <h3 className="text-3xl  font-bold">Contact Us</h3>
               <div className="space-y-1">
                 <p>
@@ -39,7 +39,7 @@ const Footer = () => {
               </div>
             </div>
             {/* Company info  */}
-            <div className=" items-center  flex flex-col ">
+            <div className=" items-center mt-20 md:mt-0  flex flex-col ">
               <h3 className="text-5xl  font-bold">Car Wash</h3>
               <p>professional car wash</p>
              
@@ -56,7 +56,7 @@ const Footer = () => {
             </div>
             </div>
             {/* shedule us  */}
-            <div className="space-y-4 text-right">
+            <div className="space-y-4 hidden md:block text-right">
               <h3 className="text-3xl  font-bold">Hours of Operation</h3>
               <div className="space-y-1 ">
                 <p

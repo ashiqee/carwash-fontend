@@ -48,7 +48,7 @@ const ServicesSection = () => {
             }
             </div>
             <div className="flex justify-center py-10">
-                 <Link to='/services'><CARButton className="text-2xl" text="Explore More"/></Link>
+                 <Link to='/services'><CARButton className="md:text-2xl px-2 p-2" text="Explore More"/></Link>
             </div>
         </div>
     );

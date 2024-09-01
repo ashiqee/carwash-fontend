@@ -45,32 +45,30 @@ of your vehicle's surfaces.`,
 
   return (
     <div className=" ">
-      {/* <img src="/src/assets/svg/turquoise_blue_waves.svg" className='fill-current text-primary' alt="" />
-            <div className='bg-button-gradient min-h-[400px]'>
-
-            </div> */}
-      <div className="relative">
+        <div className="relative">
         <Blue_waves />
-        <div className="bg-button-gradient relative overflow-hidden  max-h-[550px]">
+        <div className="bg-button-gradient relative overflow-hidden h-[1200px]  md:h-[550px]">
           <img
-            className="hover:translate-x-5  overflow-hidden object-cover translate-x-2 duration-1000 hover:ease-in-out hover:duration-1000"
+            className="hover:translate-x-5  overflow-hidden object-cover 
+            translate-x-2 duration-1000 hover:ease-in-out hover:duration-1000"
             src="/src/assets/svg/bg.svg"
             alt=""
           />
 
-          <div className="absolute top-14 2xl:left-[5%] xl:px-8  w-full 2xl:container 2xl:mx-auto text-3xl">
-            <h3 className="text-center text-white font-bold text-6xl">
+          <div className="absolute top-14 2xl:left-[5%] xl:px-8 px-4 md:px-0 w-full 2xl:container 2xl:mx-auto xl:text-3xl">
+            <h3 className="text-center text-white font-bold text-3xl xl:text-6xl">
               Full-Service While You Wait
             </h3>
 
-            <div className="py-10 grid grid-cols-3 items-center justify-center   gap-4">
+            <div className="py-10 grid md:grid-cols-3 items-center justify-center   gap-4">
               {featureds.map((item, i) => (
                 <div
                   key={i}
-                  className="flex mb-6  gap-4 shadow-2xl p-4 rounded-xl hover:scale-105 hover:duration-700 min-h-28  mx-auto  text-white items-center"
+                  className="flex mb-6  gap-4 shadow-2xl p-4 rounded-xl 
+                  hover:scale-105 hover:duration-700 min-h-28  mx-auto  text-white items-center"
                 >
                   <img className="w-20 invert" src={item.icon} alt="" />
-                  <div className="w-96">
+                  <div className="md:w-96">
                     <h4 className="text-2xl font-semibold">{item.title}</h4>
                     <p className="text-sm text-justify text-gray-300">
                       {item.discription}

@@ -14,22 +14,22 @@ const ReviewForm = () => {
         
     }
   return (
-    <div className='w-full'>
-      <div className="text-4xl text-primary">
+    <div className='w-full bg-primary/25  rounded-xl p-6 md:p-10'>
+      <div className="text-4xl flex justify-center  py-4 text-primary">
       <RatingComponent 
         emptySymbol={ <Star />}
         fullSymbol= {<Stars className="text-red-500 fill-red-500" />}
       />
       </div>
 
-      <div className='w-full'>
+      <div className='w-full md:p-10'>
        <CRForm onSubmit={handleReviewSubmit}>
        <div className='flex gap-4 '>
        <CRInput type='text' className='w-full' placeholder='Name' name={"name"}/>
        <CRInput type='text' className='w-full' placeholder='Email' name={"email"}/>
        </div>
         <CRTextarea type='text' name='feedback'/>
-        <CARButton text='Submit'/>
+        <CARButton text='Give your feedback'/>
        </CRForm>
       </div>
     </div>

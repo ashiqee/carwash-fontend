@@ -85,7 +85,7 @@ const Navbar = () => {
 
      
     
-<CARButton text='Book an Appointment' className='text-xl p-2 px-10'/>
+<Link to='/services'><CARButton text='Book an Appointment' className='text-xl p-2 px-10'/></Link>
       </div>
       <div className='bg-button-gradient py-3 px-6 text-white'>
        <div className='container flex justify-between items-center mx-auto'>
