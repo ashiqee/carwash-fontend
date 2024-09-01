@@ -3,20 +3,24 @@ import CRDatePicker from '@/components/form/CRDatePicker';
 import CRForm from '@/components/form/CRForm';
 import PageBanner from '@/components/shared/PageBanner';
 import CARButton from '@/components/ui/CARButton';
+import { addBookingCart } from '@/redux/features/bookings/bookedSlice';
+import { useAddBookingMutation } from '@/redux/features/bookings/BookingApi';
 import {
   useGetAvailableServicesQuery,
   useGetSingleServicesQuery,
 } from '@/redux/features/services/servicesApi';
+import { useAppDispatch } from '@/redux/hook';
 import { currentDate } from '@/utils/currentDate';
 import { Button, Image } from 'antd';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const ServiceDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
-  console.log(currentDate);
-console.log(new Date().toJSON())
+const dispatch = useAppDispatch()
+
   const [selectDate, setSelectDate] = useState(currentDate);
   const { data, isLoading } = useGetSingleServicesQuery(id);
   const { data: serviceSlot } = useGetAvailableServicesQuery({
@@ -24,6 +28,8 @@ console.log(new Date().toJSON())
     date: selectDate,
   });
 
+ 
+  
   // const toastId = toast('Loading..')
 
   if (isLoading) {
@@ -49,10 +55,13 @@ console.log(new Date().toJSON())
   serviceSlots && toast.success('Loaded data done !', { duration: 1000 });
 
 
-const handleBookedASlot =(id)=>{
+const handleBookedASlot =(data)=>{
 
-  console.log(id);
-  
+
+navigate('/booking',{state:{data}});
+
+
+  toast.success('Your selected slot Booked!', { duration: 1000 });
 }
 
 
@@ -74,6 +83,7 @@ const handleBookedASlot =(id)=>{
           <h2 className="text-2xl font-bold">Price: {service?.price}৳ </h2>
           <p><span>Details: </span>{service.description}</p>
             
+          
           </div>
         
           
@@ -143,8 +153,8 @@ const handleBookedASlot =(id)=>{
                         <Button disabled>Already Booked</Button>
                       ) : (
                         <button onClick={()=>handleBookedASlot(
-                          {slot:slot._id,
-                            service:service._id
+                          {slot,
+                            service
                         })} className='bg-button-gradient w-48 p-1 px-2 hover:scale-105 hover:duration-1000 text-white rounded-md'> Booked Now</button>
                       )}
                     </div>

@@ -13,12 +13,22 @@ import {
 } from '@/components/ui/table';
 import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
+import { useAddBookingMutation } from '@/redux/features/bookings/BookingApi';
 import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
 import { Image } from 'antd';
 import { Trash } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Booking = () => {
+  const location = useLocation();
+  const bookedData = location.state;
+ const bookedService = bookedData.data.service;
+ const bookedSlot = bookedData.data.slot;
+ const [addBooking]=useAddBookingMutation()
+  
+  
   const token = useAppSelector(useCurrentToken);
   let user;
   if(token){
@@ -34,7 +44,7 @@ const Booking = () => {
   const userInfo = userData?.data;
   console.log(userInfo);
 
-  const handleBookingSubmit = (data) => {
+  const handleBookingSubmit =async (data) => {
     console.log(data);
 
     const userData = {
@@ -43,8 +53,26 @@ const Booking = () => {
       phone: data.phone || userInfo?.phone,
     };
 
-    console.log(userData);
+    const bookings = {
+    
+      serviceId: bookedService._id,
+      slotId:bookedSlot._id,
+      vehicleType:"car",
+      vehicleBrand: "Tata",
+      vehicleModel: "Camry",
+       manufacturingYear: 2024,
+     registrationPlate: "ABC123"
+    }
+    console.log(bookings);
+    const res = await addBooking(bookings)
+    if(res){
+      toast.success(res.data.message)
+    }
+
   };
+
+ 
+  
 
   return (
     <div>
@@ -78,20 +106,20 @@ const Booking = () => {
                       <TableCell className="flex gap-2">
                         <Image
                           className="max-w-32 rounded-xl"
-                          src="https://img.freepik.com/premium-photo/portrait-young-smiling-happy-attractive-woman-washing-automobile-manual-car-washing-self-service-station-cleaning-with-foam-pressured-water-transportation-auto-vehicle-care-concept_361821-1369.jpg"
+                          src={bookedService?.images}
                           alt=""
                         />
                         <div>
-                          <p className="text-xl">Service Name</p>
-                          <p className="text-sm">Standard</p>
-                          <p className="text-sm">Duration: 60min</p>
+                          <Link to={`/services/${bookedService?._id}`}><p className="text-xl">{bookedService?.name}</p></Link>
+                          <p className="text-sm">{bookedService?.serviceLevel}</p>
+                          <p className="text-sm">Duration: {bookedService?.duration}min</p>
                         </div>
                       </TableCell>
                       <TableCell>
-                        <p>Date: 28-08-2024</p>
-                        <p>Time: 10:00 - 11:00</p>
+                        <p>Date: {bookedSlot?.date}</p>
+                        <p>Time: {bookedSlot?.startTime} - {bookedSlot?.endTime}</p>
                       </TableCell>
-                      <TableCell className="text-right">$250.00</TableCell>
+                      <TableCell className="text-right">{bookedService?.price}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

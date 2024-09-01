@@ -9,7 +9,8 @@ import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import HoverProfileMenu from '../shared/HoverProfileMenu';
-import SidebarGenarator from '@/utils/sidebarGenarator';
+import SidebarGenarator from '@/utils/SidebarGenarator';
+
 
 
 const {  Content, Footer, Sider } = Layout;

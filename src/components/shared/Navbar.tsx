@@ -1,4 +1,4 @@
-import {  selectCurrentUser, useCurrentToken } from '@/redux/features/auths/authSlice';
+import {  useCurrentToken } from '@/redux/features/auths/authSlice';
 import {  useAppSelector } from '@/redux/hook';
 import CARButton from '../ui/CARButton';
 import { Link, NavLink } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { Clock8, PhoneCall } from 'lucide-react';
 import Iconbg from '../ui/Iconbg';
 import HoverProfileMenu from './HoverProfileMenu';
 import { verifyToken } from '@/utils/verifyToken';
-import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
+
 
 const Navbar = () => {
   const token = useAppSelector(useCurrentToken);
@@ -39,11 +39,7 @@ const Navbar = () => {
       menuLabel:"Services",
       menuPath:'/services'
     },
-    {
-      menuLabel:"Booking",
-      menuPath:'/booking'
-    },
-    {
+     {
       menuLabel:"Contact",
       menuPath:'/contact'
     },
