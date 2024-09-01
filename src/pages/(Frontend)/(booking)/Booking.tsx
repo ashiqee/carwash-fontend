@@ -62,6 +62,7 @@ const Booking = () => {
        manufacturingYear: 2024,
      registrationPlate: "ABC123"
     }
+  console.log(bookings);
   
     const res = await addBooking(bookings)
     if(res.data.success){

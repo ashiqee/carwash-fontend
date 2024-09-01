@@ -8,11 +8,11 @@ import { Clock8, PhoneCall } from 'lucide-react';
 import Iconbg from '../ui/Iconbg';
 import HoverProfileMenu from './HoverProfileMenu';
 import { verifyToken } from '@/utils/verifyToken';
-import { useGetMyBookingsQuery } from '@/redux/features/bookings/BookingApi';
+
 
 
 const Navbar = () => {
-  const {data:usersBookings}= useGetMyBookingsQuery(undefined)
+  
 
   const token = useAppSelector(useCurrentToken);
   let user;

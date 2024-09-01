@@ -10,6 +10,7 @@ import { verifyToken } from '@/utils/verifyToken';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import HoverProfileMenu from '../shared/HoverProfileMenu';
 import SidebarGenarator from '@/utils/SidebarGenarator';
+import ImmediateSlot from '@/pages/(Backend)/(User)/components/ImmediateSlot';
 
 
 
@@ -69,7 +70,7 @@ if(token){
          {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>{pathname}</Breadcrumb.Item>
           </Breadcrumb> */}
-
+<ImmediateSlot/>
           <HoverProfileMenu user={user}/>
          </div>
           <div

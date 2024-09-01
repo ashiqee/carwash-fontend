@@ -26,6 +26,7 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
+
 const baseQueryWithRefreshToken: BaseQueryFn<
   FetchArgs,
   BaseQueryApi,
@@ -33,7 +34,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log(result);
+  console.log("Result api",result);
   
   if (result?.error?.status === 404) {
     toast.error(result.error.data.message);
