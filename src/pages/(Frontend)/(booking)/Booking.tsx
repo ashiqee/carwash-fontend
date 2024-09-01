@@ -65,8 +65,9 @@ const Booking = () => {
     }
     console.log(bookings);
     const res = await addBooking(bookings)
-    if(res){
+    if(res.data.success){
       toast.success(res.data.message)
+      window.location.href =res.data.data.payment_url
     }
 
   };

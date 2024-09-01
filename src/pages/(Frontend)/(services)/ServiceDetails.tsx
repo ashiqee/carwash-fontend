@@ -1,16 +1,15 @@
 import CRCalendar from '@/components/form/CRCalendar';
-import CRDatePicker from '@/components/form/CRDatePicker';
 import CRForm from '@/components/form/CRForm';
 import PageBanner from '@/components/shared/PageBanner';
-import CARButton from '@/components/ui/CARButton';
-import { addBookingCart } from '@/redux/features/bookings/bookedSlice';
-import { useAddBookingMutation } from '@/redux/features/bookings/BookingApi';
+import { CustomJwtPayload } from '@/interface/interface';
+import {  useCurrentToken } from '@/redux/features/auths/authSlice';
 import {
   useGetAvailableServicesQuery,
   useGetSingleServicesQuery,
 } from '@/redux/features/services/servicesApi';
-import { useAppDispatch } from '@/redux/hook';
+import { useAppSelector } from '@/redux/hook';
 import { currentDate } from '@/utils/currentDate';
+import { verifyToken } from '@/utils/verifyToken';
 import { Button, Image } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,7 +18,12 @@ import { toast } from 'sonner';
 const ServiceDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-const dispatch = useAppDispatch()
+  const token = useAppSelector(useCurrentToken);
+  let user:CustomJwtPayload;
+  if(token){
+      user= verifyToken(token);
+  }
+
 
   const [selectDate, setSelectDate] = useState(currentDate);
   const { data, isLoading } = useGetSingleServicesQuery(id);
@@ -42,7 +46,7 @@ const dispatch = useAppDispatch()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateSubmit = (date: any) => {
-    console.log(date);
+    
     
     const year = date.$y;
     const month = String(date.$M + 1).padStart(2, '0');
@@ -55,10 +59,15 @@ const dispatch = useAppDispatch()
   serviceSlots && toast.success('Loaded data done !', { duration: 1000 });
 
 
-const handleBookedASlot =(data)=>{
+const handleBookedASlot =(data:any)=>{
 
+  if(user){
 
-navigate('/booking',{state:{data}});
+    navigate('/booking',{state:{data}});
+  }else{
+    navigate('/login',{state:{data}});
+  }
+
 
 
   toast.success('Your selected slot Booked!', { duration: 1000 });
@@ -68,7 +77,7 @@ navigate('/booking',{state:{data}});
   return (
     <div>
       <PageBanner pageName={service?.name} />
-      <div className="container my-10 shadow-xl  md:p-10 rounded-xl">
+      <div className="container my-10 shadow-xl hover:shadow-2xl  md:p-10 rounded-xl">
         {/* Detail service  */}
         <div className='xl:flex '>
             <div className='w-full overflow-hidden'>
@@ -89,7 +98,9 @@ navigate('/booking',{state:{data}});
           
         </div>
 
-        <div className="my-10">
+        
+      </div>
+      <div className="my-10 container  shadow hover:shadow-2xl  md:p-10 rounded-xl">
           <div className="flex items-center justify-center py-5">
             <h2 className="text-4xl font-bold">Service Slot</h2>
             
@@ -149,13 +160,16 @@ navigate('/booking',{state:{data}});
                     <div>
                     <p>Price: {service.price}৳</p>
                         </div>
-                    {slot.isBooked === 'booked' ? (
+                    {slot.isBooked === 'booked'  ? (
                         <Button disabled>Already Booked</Button>
                       ) : (
+
+                        slot.isBooked === 'processing'? <Button disabled>Processing</Button> :
                         <button onClick={()=>handleBookedASlot(
                           {slot,
                             service
-                        })} className='bg-button-gradient w-48 p-1 px-2 hover:scale-105 hover:duration-1000 text-white rounded-md'> Booked Now</button>
+                        })} className='bg-button-gradient w-48 p-1 px-2 hover:scale-105 hover:duration-1000
+                         text-white rounded-md'> Booked Now</button>
                       )}
                     </div>
                   </div>
@@ -165,7 +179,6 @@ navigate('/booking',{state:{data}});
           </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };
