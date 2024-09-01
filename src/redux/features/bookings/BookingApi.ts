@@ -9,6 +9,16 @@ const bookingApi = baseApi.injectEndpoints({
       }),
       providesTags: ['bookings'],
     }),
+
+    getMyBookings: builder.query({
+      query: () => ({
+        url: `/my-bookings`,
+        method: 'GET',
+      }),
+      providesTags: ['bookings'],
+    }),
+
+
     getSingleBooking: builder.query({
       query: (id) => ({
         url: `/bookings/${id}`,
@@ -54,5 +64,6 @@ useAddBookingMutation,
 useDeleteBookingMutation,
 useGetBookingsQuery,
 useGetSingleBookingQuery,
-useUpdateBookingMutation
+useUpdateBookingMutation,
+useGetMyBookingsQuery
 } = bookingApi;

@@ -4,8 +4,8 @@ import UserDashboard from "@/pages/(Backend)/(User)/UserDashboard";
 
 export const userPaths =[
     {
-        name:"Dashboard",
-        path:'dashboard',
+        name:"Up Coming Booking",
+        path:'up-coming-booking',
         element:<UserDashboard/>
     },
     {

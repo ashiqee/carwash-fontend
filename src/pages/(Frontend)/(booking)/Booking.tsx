@@ -42,11 +42,10 @@ const Booking = () => {
     return <>Loading..</>;
   }
   const userInfo = userData?.data;
-  console.log(userInfo);
+
 
   const handleBookingSubmit =async (data) => {
-    console.log(data);
-
+   
     const userData = {
       name: data.name || userInfo?.name,
       email: data.email || userInfo?.email,
@@ -63,7 +62,7 @@ const Booking = () => {
        manufacturingYear: 2024,
      registrationPlate: "ABC123"
     }
-    console.log(bookings);
+  
     const res = await addBooking(bookings)
     if(res.data.success){
       toast.success(res.data.message)

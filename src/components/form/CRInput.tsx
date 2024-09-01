@@ -13,11 +13,12 @@ type TInputProps = {
   readonly?:boolean;
 };
 
-const CRInput = ({ type, name, label, disabled,className,placeholder,defaultValue }: TInputProps) => {
+const CRInput = ({ type, name,readonly, label, disabled,className,placeholder,defaultValue }: TInputProps) => {
   return (
     <div className={className}>
       <Controller
         name={name}
+        
         defaultValue={defaultValue}
         render={({ field }) => (
           <Form.Item label={label}>
@@ -25,11 +26,10 @@ const CRInput = ({ type, name, label, disabled,className,placeholder,defaultValu
               {...field}
               type={type}
               id={name}
-              
-              
               placeholder={placeholder}
               size="large"
               disabled={disabled}
+              readOnly={readonly}
             />
           </Form.Item>
         )}
