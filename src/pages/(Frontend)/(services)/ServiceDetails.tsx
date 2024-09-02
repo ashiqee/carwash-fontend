@@ -1,6 +1,7 @@
 import CRCalendar from '@/components/form/CRCalendar';
 import CRForm from '@/components/form/CRForm';
 import Empty from '@/components/shared/Empty';
+import Loading from '@/components/shared/Loading';
 import PageBanner from '@/components/shared/PageBanner';
 
 import { CustomJwtPayload } from '@/interface/interface';
@@ -35,13 +36,10 @@ const ServiceDetails = () => {
     serviceId: id || '',
     date: selectDate,
   });
-
-  // const toastId = toast('Loading..')
-
+  
   if (isLoading) {
-    return <>Loading..</>;
+    return <><Loading/></>;
   }
-
   const serviceSlots = serviceSlot?.data;
 
   const service = data?.data;

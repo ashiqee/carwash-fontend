@@ -1,3 +1,4 @@
+import Loading from "@/components/shared/Loading";
 import PageBanner from "@/components/shared/PageBanner";
 import { TReviews } from "@/interface/interface";
 import { useGetReviewsQuery } from "@/redux/features/reviews/reviewsApi";
@@ -6,11 +7,9 @@ import { Star } from "lucide-react";
 
 const Reviews = () => {
     const {data:reviewsData,isLoading}= useGetReviewsQuery(undefined)
-
-    if(isLoading){
-        return <>Loading..</>
-    }
-    
+    if (isLoading) {
+        return <><Loading/></>;
+      }
     return (
         <div>
             <PageBanner pageName="All Reviews"/>

@@ -16,6 +16,7 @@ import { verifyToken } from '@/utils/verifyToken';
 import OverlayReviewForm from './comp/OverlayReviewForm';
 import { useGetReviewsQuery } from '@/redux/features/reviews/reviewsApi';
 import { TReviews } from '@/interface/interface';
+import Loading from '@/components/shared/Loading';
 
 const ReviewSection = () => {
   const { data: reviewData, isLoading } = useGetReviewsQuery(undefined);
@@ -27,7 +28,7 @@ const ReviewSection = () => {
   }
 
   if (isLoading) {
-    return <>Loading..</>;
+    return <><Loading/></>;
   }
 
   const averageReview =
@@ -51,7 +52,7 @@ const ReviewSection = () => {
             What Our Clients Say
           </h3>
 
-          <div className="py-10 w-full md:flex items-center  justify-around   gap-10">
+          <div className="py-10 w-full md:flex items-center   2xl:justify-around   md:gap-20">
             <div className="  rounded-lg">
               {user ? <ReviewForm></ReviewForm> : <OverlayReviewForm />}
             </div>

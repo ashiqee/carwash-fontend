@@ -29,6 +29,7 @@ import {
 } from '@/redux/features/services/slotsApi';
 import { toast } from 'sonner';
 import CreateSlots from '../Components/CreateSlots';
+import Loading from '@/components/shared/Loading';
 
 const SlotManagement = () => {
   const initialFilterValues: TFilterValues = {
@@ -57,7 +58,7 @@ const SlotManagement = () => {
   };
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <><Loading/></>;
   }
 
   const handleSlotStatus = async (data: { id: string; status: string }) => {

@@ -1,5 +1,6 @@
 import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
+import Loading from '@/components/shared/Loading';
 import PageBanner from '@/components/shared/PageBanner';
 import { Button } from '@/components/ui/button';
 import {
@@ -37,7 +38,7 @@ const Booking = () => {
   const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
 
   if (isLoading) {
-    return <>Loading..</>;
+    return <><Loading/></>;
   }
   const userInfo = userData?.data;
 

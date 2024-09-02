@@ -14,6 +14,7 @@ import Search from '@/components/ui/Search';
 
 import { useGetBookingsQuery } from '@/redux/features/bookings/BookingApi';
 import { Link } from 'react-router-dom';
+import Loading from '@/components/shared/Loading';
 
 
 
@@ -29,16 +30,8 @@ const UserBookings = () => {
   const { data: bookingDatas, isLoading } = useGetBookingsQuery(filters);
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <><Loading/></>;
   }
-
-
-
-  
-  if (isLoading) {
-    return <>Loading...</>;
-  }
- 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {

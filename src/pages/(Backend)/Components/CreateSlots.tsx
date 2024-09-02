@@ -12,6 +12,7 @@ import StartnEndTimeConverter from '../utils/StartnEndTimeConverter';
 import { toast } from 'sonner';
 import { useCreateServiceSlotsMutation } from '@/redux/features/services/slotsApi';
 import { Link } from 'react-router-dom';
+import Loading from '@/components/shared/Loading';
 
 
 
@@ -22,7 +23,7 @@ const CreateSlots: FC<IModalProps> = ({ isOpen, onClose }) => {
   const [service, setService] = useState<IServices | null>(null);
 
   if (isLoading) {
-    return <>Loading..</>;
+    return <><Loading/></>;
   }
 
   const services = servicesDatas?.data?.map((service: any) => ({

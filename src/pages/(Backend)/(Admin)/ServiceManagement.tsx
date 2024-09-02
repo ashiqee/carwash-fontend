@@ -26,6 +26,7 @@ import { Link } from 'react-router-dom';
 import { IServices } from '@/interface/interface';
 import DeleteServiceModal from '../Components/DeleteServiceModal';
 import AddNewService from '../Components/AddServiceModal';
+import Loading from '@/components/shared/Loading';
 
 
 
@@ -53,9 +54,8 @@ const ServiceManagement = () => {
   };
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <><Loading/></>;
   }
-
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {

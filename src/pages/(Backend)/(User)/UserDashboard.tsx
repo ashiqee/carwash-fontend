@@ -3,13 +3,14 @@ import { useGetMyBookingsQuery } from '@/redux/features/bookings/BookingApi';
 import Countdown from './components/CountdownTimer';
 import { Link } from 'react-router-dom';
 import Empty from '@/components/shared/Empty';
+import Loading from '@/components/shared/Loading';
 
 const UserDashboard = () => {
   const { data: usersBookings,isLoading } = useGetMyBookingsQuery(undefined);
 
-if(isLoading){
-  return <>Loading..</>
-}
+  if (isLoading) {
+    return <><Loading/></>;
+  }
 
 
   const parseDateTime = (date:string,time:string)=> new Date(`${date}T${time}`);

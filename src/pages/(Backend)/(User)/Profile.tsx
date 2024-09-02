@@ -1,5 +1,6 @@
 import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
+import Loading from '@/components/shared/Loading';
 import CARButton from '@/components/ui/CARButton';
 import { useGetUserinfoQuery, useUpdateUserInfoMutation } from '@/redux/features/auths/authApi';
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
@@ -23,7 +24,7 @@ const Profile = () => {
     const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
   
     if (isLoading) {
-      return <>Loading..</>;
+      return <><Loading/></>;
     }
     const userInfo = userData?.data;
 

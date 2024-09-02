@@ -11,8 +11,10 @@ import { toast } from 'sonner';
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+ 
 
   const [login] = useLoginMutation();
+
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
@@ -44,13 +46,28 @@ const Login = () => {
             <h4 className="text-3xl font-bold">Login Now</h4>
             <p>Get Car Wash </p>
           </div>
+          
 
           <CRForm onSubmit={onSubmit}>
-            <CRInput type="email" name="email" label="Email" />
-            <CRInput type="password" name="password" label="Password" />
+            <CRInput type="email" name="email"  label="Email" />
+            <CRInput type="password" name="password"  label="Password" />
 
             <CARButton className="text-xl px-4 p-1.5" text="Login" />
           </CRForm>
+       <div className='flex gap-4'>
+       <button  onClick={()=>onSubmit({
+            email: "admin@programming-hero.com",
+            password: "ph-password"
+          })} className='md:p-2 px-2 p-1 md:px-4 bg-button-gradient rounded-md text-white'>
+            Login as admin
+          </button>
+          <button onClick={()=>onSubmit({
+            email: "reviewer@carwash.com",
+            password: "12345678"
+          })} className='md:p-2 px-2 p-1 md:px-4 bg-button-gradient rounded-md text-white'>
+            Login as user
+          </button>
+       </div>
         </div>
         <div className="md:py-20 py-10 px-4 w-full">
           <div className="flex items-center gap-6">
@@ -58,7 +75,7 @@ const Login = () => {
             <Link to="/signup">
               <CARButton
                 text="Sign Up"
-                className="md:text-2xl px-8 md:px-8 p-2"
+                className="md:text-xl px-2 md:px-4 p-2"
               />
             </Link>
           </div>

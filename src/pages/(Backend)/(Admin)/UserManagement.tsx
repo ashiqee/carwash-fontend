@@ -21,6 +21,7 @@ import { Image } from 'antd';
 import Search from '@/components/ui/Search';
 import { useGetAllUserinfoQuery } from '@/redux/features/auths/authApi';
 import ChangeRoleModal from '../Components/ChangeRoleModal';
+import Loading from '@/components/shared/Loading';
 
 
 
@@ -47,9 +48,8 @@ const UserManagement = () => {
   };
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <><Loading/></>;
   }
- 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {

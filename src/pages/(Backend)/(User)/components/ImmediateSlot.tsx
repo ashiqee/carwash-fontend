@@ -2,6 +2,7 @@ import { useGetMyBookingsQuery } from '@/redux/features/bookings/BookingApi';
 import  { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Countdown from './CountdownTimer';
+import Loading from '@/components/shared/Loading';
 
 const ImmediateSlot = () => {
   const [skipLoad,setSkipLoad]=useState(true)
@@ -15,8 +16,8 @@ const ImmediateSlot = () => {
     }, [usersBookings, isLoading]);
 
 
-    if(isLoading){
-      return <>Loading..</>
+    if (isLoading) {
+      return <><Loading/></>;
     }
     
     if (!usersBookings) {

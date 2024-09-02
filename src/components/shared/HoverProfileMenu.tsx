@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/redux/hook';
 import { logout} from '@/redux/features/auths/authSlice';
 import { Link } from 'react-router-dom';
 import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
+import Loading from './Loading';
 
 interface IHoverProfileMenu{
   user:any;
@@ -21,7 +22,7 @@ const HoverProfileMenu: React.FC<IHoverProfileMenu> = ({user}) => {
     const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
 
     if (isLoading) {
-      return <>Loading..</>;
+      return <><Loading/></>;
     }
 
     const handleLogout =()=>{

@@ -14,6 +14,7 @@ import Search from '@/components/ui/Search';
 
 import { useGetBookingsQuery } from '@/redux/features/bookings/BookingApi';
 import { Link } from 'react-router-dom';
+import Loading from '@/components/shared/Loading';
 
 type TUserFilterValue = {
   searchTerm: String;
@@ -26,9 +27,8 @@ const RecentBookings = () => {
   const { data: bookingDatas, isLoading } = useGetBookingsQuery(filters);
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <><Loading/></>;
   }
-
 
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
