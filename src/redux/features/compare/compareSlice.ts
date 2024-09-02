@@ -20,21 +20,23 @@ const compareSlice = createSlice({
     addCompare: (state, action) => {
       const service = action.payload;
       if(!state.selectedServices.find(item=>item._id === service._id)){
-
-      }else{
         state.selectedServices.push(service)
       }
     },
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
+
+    removeCompareServices: (state , action) => {
+    state.selectedServices = state.selectedServices.filter((service)=>service._id !== action.payload)
     },
+
+    clearCompare: (state)=>{
+        state.selectedServices=[]
+    }
   },
 });
 
-export const { setUser,logout } = compareSlice.actions;
+export const { addCompare,removeCompareServices,clearCompare } = compareSlice.actions;
 
 export default compareSlice.reducer;
 
-export const useSelectedCompare = (state: RootState) => state.auth.token;
+export const useSelectedCompare = (state: RootState) => state.compare.selectedServices;
 
