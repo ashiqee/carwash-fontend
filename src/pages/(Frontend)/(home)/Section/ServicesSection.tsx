@@ -38,7 +38,7 @@ const ServicesSection = () => {
                        </div>
                          <div className="py-4 text-right px-4 text-white">
                          <h3 className="xl:text-2xl text-xl font-bold">{service.name}</h3>
-                         <p className="xl:text-md">{service?.description?.slice(0,140)} <span>{service?.description?.length >140 && "..."}</span></p>
+                         <p className="xl:text-md">{service?.description?.slice(0,40)} <span>{service?.description?.length >40 && "..."}</span></p>
                        
                          </div>
                       </div>

@@ -47,8 +47,8 @@ const Navbar = () => {
       menuPath:'/services'
     },
      {
-      menuLabel:"Contact",
-      menuPath:'/contact'
+      menuLabel:"Compare",
+      menuPath:'/compare'
     },
      {
     menuLabel:"Dashboard",

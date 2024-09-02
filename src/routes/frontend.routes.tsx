@@ -1,7 +1,7 @@
 
 import AboutUs from '@/pages/(Frontend)/(about-us)/AboutUs';
 import Booking from '@/pages/(Frontend)/(booking)/Booking';
-import Contact from '@/pages/(Frontend)/(contact)/Contact';
+import Compare from '@/pages/(Frontend)/(compare)/Compare';
 import HomePage from '@/pages/(Frontend)/(home)/HomePage';
 import ServiceDetails from '@/pages/(Frontend)/(services)/ServiceDetails';
 import Services from '@/pages/(Frontend)/(services)/Services';
@@ -30,8 +30,8 @@ export const frontendPageRoutes = [
         element:<Booking/>
       },
       {
-        path:"contact",
-        element:<Contact/>
+        path:"compare",
+        element:<Compare/>
       },
     ],
   },

@@ -48,7 +48,7 @@ const bookingApi = baseApi.injectEndpoints({
       invalidatesTags: ['bookings'],
     }),
 
-    // delete order api 
+    // delete booking api 
     deleteBooking: builder.mutation({
       query: (id) => ({
         url: `/bookings/${id}`,

@@ -8,19 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { EllipsisVertical } from 'lucide-react';
+
 import { Image } from 'antd';
 import Search from '@/components/ui/Search';
-import { useGetAllUserinfoQuery } from '@/redux/features/auths/authApi';
-import ChangeRoleModal from '../Components/ChangeRoleModal';
+
+import { useGetBookingsQuery } from '@/redux/features/bookings/BookingApi';
+import { Link } from 'react-router-dom';
 
 
 
@@ -33,19 +26,15 @@ const UserBookings = () => {
     
   };
   const [filters, setFilters] = useState<TUserFilterValue>(initialFilterValues);
-  const {data:userDatas ,isLoading}= useGetAllUserinfoQuery(filters)
-  const [isModalOpen, setIsModalOpen] = useState(false);
-   const [editUserData, setServiceData] = useState(null);
+  const { data: bookingDatas, isLoading } = useGetBookingsQuery(filters);
 
-  const openModal = (data:any) => {
-    setServiceData(data)
-    setIsModalOpen(true);
-  };
+  if (isLoading) {
+    return <>Loading...</>;
+  }
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
+
+  
   if (isLoading) {
     return <>Loading...</>;
   }
@@ -80,17 +69,22 @@ const UserBookings = () => {
             {
               <TableRow>
                 <TableHead className="w-[100px]">#</TableHead>
+                <TableHead >Created at</TableHead>
                 <TableHead>User Name</TableHead>
                 <TableHead>Contact Info</TableHead>
-                <TableHead className="text-right">Role</TableHead>
-                <TableHead className="w-[100px]">Action</TableHead>
+                <TableHead className="text-right">Service Title</TableHead>
               </TableRow>
             }
           </TableHeader>
           <TableBody>
-            {userDatas?.data?.map((usData:any, i:number) => (
+            {bookingDatas?.data?.map((usData:any, i:number) => (
               <TableRow key={usData._id}>
                 <TableCell className="font-medium">{i + 1}</TableCell>
+                <TableCell className="font-medium">
+                  <p>{usData.createdAt.slice(0,10)}</p>
+                  Time: {usData.createdAt.slice(11,16)}
+
+                </TableCell>
                 <TableCell className="flex gap-2">
                   <Image
                     className="max-w-32 rounded-xl"
@@ -98,42 +92,23 @@ const UserBookings = () => {
                     alt=""
                   />
                   <div>
-                    <p className="text-xl">{usData.name}</p>
+                    <p className="text-xl">{usData.customer.name}</p>
                 
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="text-sm">{usData.email}</p>
-                  <p className="text-sm">0{usData.phone}</p>
+                  <p className="text-sm">{usData.customer.email}</p>
+                  <p className="text-sm">0{usData.customer.phone}</p>
                 </TableCell>
-                <TableCell className="text-right">{usData.role}</TableCell>
-                <TableCell className="font-medium  text-right ">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <EllipsisVertical />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuLabel>Action Menu</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={()=>openModal(usData)}>
-                        Change user role
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                 
+                <TableCell className="text-right">
+                  <Link to={`/services/${usData.service._id}`}>{usData.service.name}</Link>
                 </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        {isModalOpen && (
-        <ChangeRoleModal
-          data={editUserData}
-          isOpen={!!editUserData}
-          onClose={closeModal}
-        />
-      )}
+    
       </div>
     </div>
   );

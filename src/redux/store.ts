@@ -13,19 +13,26 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import compareReducer from './features/compare/compareSlice';
 
 const authPersistConfig = {
   key: 'auth',
   storage,
 };
+const comparePersistConfig = {
+  key: 'compare',
+  storage,
+};
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedCompareReducer = persistReducer(comparePersistConfig, compareReducer);
 
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
+    compare: persistedCompareReducer,
    
    
   },

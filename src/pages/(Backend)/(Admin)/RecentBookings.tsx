@@ -29,7 +29,7 @@ const RecentBookings = () => {
     return <>Loading...</>;
   }
 
-  console.log(bookingDatas);
+
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSearterm = (data: any) => {

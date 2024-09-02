@@ -1,6 +1,7 @@
 import CRCalendar from '@/components/form/CRCalendar';
 import CRForm from '@/components/form/CRForm';
 import PageBanner from '@/components/shared/PageBanner';
+import CARButton from '@/components/ui/CARButton';
 import { CustomJwtPayload } from '@/interface/interface';
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
 import {
@@ -11,6 +12,7 @@ import { useAppSelector } from '@/redux/hook';
 import { currentDate } from '@/utils/currentDate';
 import { verifyToken } from '@/utils/verifyToken';
 import { Button, Image } from 'antd';
+import { GitCompare } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -66,7 +68,7 @@ const ServiceDetails = () => {
   return (
     <div>
       <PageBanner pageName={service?.name} />
-      <div className="container my-10 shadow-xl  hover:shadow-2xl  md:p-10 rounded-xl">
+      <div className="container  shadow-xl  hover:shadow-2xl  md:p-10 rounded-xl">
         {/* Detail service  */}
         <div className="xl:flex px-4">
           <div className="w-full overflow-hidden">
@@ -77,6 +79,9 @@ const ServiceDetails = () => {
             />
           </div>
           <div className="px-8 py-4 space-y-2 bg-primary/5 w-full rounded-xl md:rounded-r-2xl">
+           <div className='flex flex-col justify-between h-full'>
+            {/* service details  */}
+            <div className='space-y-2'>
             <div className="flex justify-between items-center ">
               <h2 className="text-3xl font-bold">{service?.name}</h2>
               <small className="border p-1 rounded-lg bg-primary/10 px-2">
@@ -91,6 +96,15 @@ const ServiceDetails = () => {
               <span>Details: </span>
               {service.description}
             </p>
+            </div>
+            {/* compare button  */}
+            <div className='flex justify-end'>
+              <Button className='bg-button-gradient p-2 px-2 font-medium text-white'>
+              Add to Compare
+              </Button>
+                  
+            </div>
+           </div>
           </div>
         </div>
       </div>
@@ -99,8 +113,8 @@ const ServiceDetails = () => {
           <h2 className="text-4xl font-bold">Service Slot</h2>
         </div>
 
-        <div className="xl:flex gap-6 ">
-          <div className="xl:w-1/3 mx-auto w-full">
+        <div className="xl:flex  gap-6 ">
+          <div className="xl:w-1/3  mx-auto w-full">
             <CRForm onSubmit={handleDateSubmit}>
               {/* <CRDatePicker name="slot" label="Filter with date"></CRDatePicker> */}
 
@@ -129,7 +143,7 @@ const ServiceDetails = () => {
                 Sorry! Not available slot for This services{' '}
               </p>
             ) : (
-              <div className="grid xl:grid-cols-2  gap-6">
+              <div className="grid xl:grid-cols-2 overflow-scroll overflow-x-hidden max-h-96 gap-6">
                 {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                 serviceSlots?.map((slot: any, i: number) => (
                   <div

@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/carousel';
 import { Star } from 'lucide-react';
 import ReviewForm from './comp/ReviewForm';
+import CARButton from '@/components/ui/CARButton';
 
 const ReviewSection = () => {
   const reviewData = [
@@ -48,8 +49,8 @@ const ReviewSection = () => {
             alt=""
           />
   
-          <div className="absolute top-1 px-4 md:px-0 md:left-[12%] xl:px-8  w-full 2xl:container 2xl:mx-auto text-3xl">
-          <h3 className="text-center relative xl:right-32 text-primary font-bold md:text-4xl 2xl:text-6xl">
+          <div className="absolute top-1 px-4 md:px-0 md:left-[5%] 2xl:left-[12%] xl:px-8  w-full 2xl:container 2xl:mx-auto text-3xl">
+          <h3 className="text-center relative xl:right-16 text-primary font-bold md:text-4xl 2xl:text-6xl">
               What Our Clients Say
             </h3>
 
@@ -97,7 +98,12 @@ const ReviewSection = () => {
                 <CarouselPrevious />
                 <CarouselNext />
               </Carousel>
+              
             </div>
+            <div className='flex justify-center text-xl'>
+                <CARButton text='See More Reviews'    className="px-4 md:text-xl p-2 "
+                />
+              </div>
           </div>
         </div>
       </div>
