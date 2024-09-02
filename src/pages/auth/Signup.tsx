@@ -3,7 +3,7 @@ import CRInput from '@/components/form/CRInput';
 import CARButton from '@/components/ui/CARButton';
 import { useSignupMutation } from '@/redux/features/auths/authApi';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 
@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 // }
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [signup]=useSignupMutation()
 
 
@@ -29,6 +30,7 @@ const Signup = () => {
             const res = await signup(userInfo)
             if(res.data.success){
                 toast.success(res.data.message,{id:toastId,duration:2000})
+                navigate('/login');
             }
         }catch (err) {
       toast.error(`Something went wrong`, { id: toastId, duration: 2000 });

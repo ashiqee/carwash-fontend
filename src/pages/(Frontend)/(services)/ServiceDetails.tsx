@@ -1,24 +1,26 @@
 import CRCalendar from '@/components/form/CRCalendar';
 import CRForm from '@/components/form/CRForm';
 import PageBanner from '@/components/shared/PageBanner';
-import CARButton from '@/components/ui/CARButton';
+
 import { CustomJwtPayload } from '@/interface/interface';
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
+import { addCompare } from '@/redux/features/compare/compareSlice';
 import {
   useGetAvailableServicesQuery,
   useGetSingleServicesQuery,
 } from '@/redux/features/services/servicesApi';
-import { useAppSelector } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { currentDate } from '@/utils/currentDate';
 import { verifyToken } from '@/utils/verifyToken';
 import { Button, Image } from 'antd';
-import { GitCompare } from 'lucide-react';
+
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 const ServiceDetails = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   const { id } = useParams();
   const token = useAppSelector(useCurrentToken);
   let user: CustomJwtPayload;
@@ -99,7 +101,7 @@ const ServiceDetails = () => {
             </div>
             {/* compare button  */}
             <div className='flex justify-end'>
-              <Button className='bg-button-gradient p-2 px-2 font-medium text-white'>
+              <Button onClick={()=>dispatch(addCompare(service))} className='bg-button-gradient p-2 px-2 font-medium text-white'>
               Add to Compare
               </Button>
                   

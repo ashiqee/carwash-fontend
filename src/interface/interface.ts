@@ -37,3 +37,12 @@ export interface TUserPath{
     role?:string;
     userEmail?:string;
   }
+
+  export type TReviews = {
+    user: any;
+   feedback: string;
+   rating: number;
+   profileImg?:string;
+    
+   
+  };

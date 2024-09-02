@@ -38,13 +38,14 @@ const Navbar = () => {
       menuLabel:"Home",
       menuPath:'/'
     },
-    {
-      menuLabel:"About us",
-      menuPath:'/about-us'
-    },
+    
     {
       menuLabel:"Services",
       menuPath:'/services'
+    },
+    {
+      menuLabel:"Reviews",
+      menuPath:'/reviews'
     },
      {
       menuLabel:"Compare",
@@ -94,7 +95,7 @@ const Navbar = () => {
           {
             navMenu.map((item,i)=>(
              <NavLink className={({isActive})=> 
-            isActive ? 'bg-slate-400 text-gray-100 animate-press duration-1000  px-3 font-medium rounded-xl p-0.5' : "px-3 font-medium rounded-xl p-0.5"
+            isActive ? 'bg-slate-200 text-primary   animate-press duration-1000  px-3 font-medium rounded-xl p-0.5' : "px-3 text-gray-100 font-medium rounded-xl p-0.5"
             } key={i} to={item.menuPath}> 
              {item.menuLabel}
              </NavLink>

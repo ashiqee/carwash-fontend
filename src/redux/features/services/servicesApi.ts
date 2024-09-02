@@ -4,12 +4,9 @@ const serviceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getServices: builder.query({
       query: (filters) => {
-       
-        const params = new URLSearchParams(
-          filters,
-        );
-               
-        return `/services?${params}`;
+        const params = new URLSearchParams(filters);
+
+        return { url: `/services?${params}`, method: 'GET' };
       },
       providesTags: ['services'],
     }),
@@ -22,21 +19,19 @@ const serviceApi = baseApi.injectEndpoints({
       providesTags: ['services'],
     }),
 
-    
     getAvailableServices: builder.query({
       query: (payload) => {
-       
-        const params = new URLSearchParams(
-          payload,
-        );
-       
-                   
-        return `/slots/availability?${params}`
+        const params = new URLSearchParams(payload);
+
+        return {
+          url: `/slots/availability?${params}`,
+          method: 'GET',
+        };
       },
       providesTags: ['services'],
     }),
 
-    // addService api 
+    // addService api
     addService: builder.mutation({
       query: (data) => ({
         url: '/services',
@@ -46,7 +41,7 @@ const serviceApi = baseApi.injectEndpoints({
       invalidatesTags: ['services'],
     }),
 
-    // updateService api 
+    // updateService api
     updateService: builder.mutation({
       query: (data) => ({
         url: `/services/${data.id}`,
@@ -56,14 +51,14 @@ const serviceApi = baseApi.injectEndpoints({
       invalidatesTags: ['services'],
     }),
 
-    // delete service api 
+    // delete service api
     deleteService: builder.mutation({
       query: (id) => ({
         url: `/services/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['services'],
-    })
+    }),
   }),
 });
 
