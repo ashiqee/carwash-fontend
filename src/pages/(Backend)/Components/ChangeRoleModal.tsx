@@ -7,11 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { IModalProps } from '@/interface/interface';
 import { useUpdateUserRoleMutation } from '@/redux/features/auths/authApi';
 import { Input } from 'antd';
+import { FC } from 'react';
 import { toast } from 'sonner';
 
-const ChangeRoleModal = ({ isOpen, onClose, data }) => {
+
+
+const ChangeRoleModal: FC<IModalProps> = ({ isOpen, onClose, data }) => {
   const [updateUserRole] = useUpdateUserRoleMutation();
 
   const handleEditDataSubmit = async (e: any) => {

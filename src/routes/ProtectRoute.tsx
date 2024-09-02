@@ -18,7 +18,7 @@ const dispatch = useAppDispatch()
     if(token){
         user= verifyToken(token);
     }
-    console.log(role);
+   
     
     if(role !== undefined && role !== user?.role){
         dispatch(logout());

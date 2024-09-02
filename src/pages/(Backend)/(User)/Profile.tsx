@@ -5,8 +5,7 @@ import { useGetUserinfoQuery, useUpdateUserInfoMutation } from '@/redux/features
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
 import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
-import { Button } from 'antd';
-import { Edit, Minimize, MinimizeIcon, X } from 'lucide-react';
+import { Edit, X } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -35,6 +34,8 @@ const Profile = () => {
    
    const updateData ={...data,userId}
 
+   console.log(updateData);
+   
         const res =await updateUserInfo(updateData);
 
         if(res.data.success){

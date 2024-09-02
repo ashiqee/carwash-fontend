@@ -1,17 +1,29 @@
 import { useGetMyBookingsQuery } from '@/redux/features/bookings/BookingApi';
-import React from 'react';
+import  { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Countdown from './CountdownTimer';
 
 const ImmediateSlot = () => {
+  const [skipLoad,setSkipLoad]=useState(true)
 
-    const { data: usersBookings,isLoading } = useGetMyBookingsQuery(undefined);
+    const { data: usersBookings,isLoading } = useGetMyBookingsQuery(undefined,{skip:skipLoad});
+
+    useEffect(() => {
+      if (!usersBookings && !isLoading) {
+        setSkipLoad(false);  // Enable loading the query if there are no bookings and it's not currently loading
+      }
+    }, [usersBookings, isLoading]);
+
 
     if(isLoading){
       return <>Loading..</>
     }
     
-    
+    if (!usersBookings) {
+      return <></>;
+    }
+
+
       const parseDateTime = (date:string,time:string)=> new Date(`${date}T${time}`);
     
     
@@ -24,14 +36,18 @@ const ImmediateSlot = () => {
       const immediateSlot = sortedBookings?.[0]
 
     return (
-        <div className='shadow absolute right-1/3 p-2 -translate-y-20 hover:-translate-y-5 duration-1000 hover:bg-button-gradient hover:text-white  rounded-lg'>
-            <div className='flex justify-between items-center'>
-            <Link to={`/services/${immediateSlot.service._id}`}> <p>{immediateSlot.service.name}</p></Link>
-            <p>StartTime: {immediateSlot.slot.startTime}</p>
-            </div>
-            <Countdown countdownTargetDate={new Date(`${immediateSlot.slot.date}T${immediateSlot.slot.startTime}`)} />
-        
-        </div>
+        <>
+        {
+          immediateSlot ? <div className='shadow absolute right-1/3 p-2 -translate-y-20 hover:-translate-y-5 duration-1000 hover:bg-button-gradient hover:text-white  rounded-lg'>
+          <div className='flex justify-between items-center'>
+          <Link to={`/services/${immediateSlot?.service._id}`}> <p>{immediateSlot?.service.name}</p></Link>
+          <p>StartTime: {immediateSlot?.slot.startTime}</p>
+          </div>
+          <Countdown countdownTargetDate={new Date(`${immediateSlot?.slot.date}T${immediateSlot?.slot.startTime}`)} />
+      
+      </div> : ""
+        }
+        </>
     );
 };
 

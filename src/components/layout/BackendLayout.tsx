@@ -72,7 +72,7 @@ if(token){
             <Breadcrumb.Item>{pathname}</Breadcrumb.Item>
           </Breadcrumb> */}
 <div>
-{user?.role === "user" && <ImmediateSlot/>}
+{user?.role === "user"  && <ImmediateSlot/>}
 </div>
           <HoverProfileMenu user={user}/>
          </div>

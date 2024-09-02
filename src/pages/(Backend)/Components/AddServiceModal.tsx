@@ -9,6 +9,8 @@ import { useAddServiceMutation } from '@/redux/features/services/servicesApi';
 import { toast } from 'sonner';
 
 import {  Minimize2Icon } from 'lucide-react';
+import { FC } from 'react';
+import { IModalProps } from '@/interface/interface';
 
 
 const serviceLevel = [
@@ -34,7 +36,8 @@ const serviceLevel = [
   },
 ];
 
-const AddNewService = ({ isOpen, onClose }) => {
+
+const AddNewService: FC<IModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
    const [addService]= useAddServiceMutation()
 

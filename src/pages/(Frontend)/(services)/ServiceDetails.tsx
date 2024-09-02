@@ -1,5 +1,6 @@
 import CRCalendar from '@/components/form/CRCalendar';
 import CRForm from '@/components/form/CRForm';
+import Empty from '@/components/shared/Empty';
 import PageBanner from '@/components/shared/PageBanner';
 
 import { CustomJwtPayload } from '@/interface/interface';
@@ -67,6 +68,14 @@ const ServiceDetails = () => {
     toast.success('Your selected slot Booked!', { duration: 1000 });
   };
 
+  const handleBookedCompare = (data: any) => {
+     dispatch(addCompare(data))
+       
+     toast.success('Your selected slot added in Comaparison!', { duration: 1000 });
+     navigate('/compare');
+  };
+
+
   return (
     <div>
       <PageBanner pageName={service?.name} />
@@ -101,7 +110,7 @@ const ServiceDetails = () => {
             </div>
             {/* compare button  */}
             <div className='flex justify-end'>
-              <Button onClick={()=>dispatch(addCompare(service))} className='bg-button-gradient p-2 px-2 font-medium text-white'>
+              <Button onClick={()=>handleBookedCompare(service)} className='bg-button-gradient p-2 px-2 font-medium text-white'>
               Add to Compare
               </Button>
                   
@@ -141,9 +150,7 @@ const ServiceDetails = () => {
               <p className="text-right">Filter date: {selectDate}</p>
             )}
             {!serviceSlot?.success ? (
-              <p className="md:text-3xl py-10 text-xl text-center w-full">
-                Sorry! Not available slot for This services{' '}
-              </p>
+              <Empty text='Sorry! Not available slot for This services'/>
             ) : (
               <div className="grid xl:grid-cols-2 overflow-scroll overflow-x-hidden max-h-96 gap-6">
                 {// eslint-disable-next-line @typescript-eslint/no-explicit-any

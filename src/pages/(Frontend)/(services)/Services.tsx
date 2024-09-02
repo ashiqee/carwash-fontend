@@ -29,8 +29,6 @@ const Services = () => {
     servicelevel: [],
   };
   const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
-  const [levels,setLevel]=useState<string[]>([]);
-
   const { data: services } = useGetServicesQuery(filters);
 
   const servicesData = services?.data;

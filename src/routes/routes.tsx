@@ -5,7 +5,6 @@ import MainLayout from '@/components/layout/MainLayout';
 import Login from '@/pages/auth/Login';
 import Signup from '@/pages/auth/Signup';
 import BackendLayout from '@/components/layout/BackendLayout';
-import { backendPageRoutes } from './backend.routes';
 import ErrorPage from '@/components/shared/ErrorPage';
 import { adminPaths } from './admin.routes';
 import { userPaths } from './user.routes';

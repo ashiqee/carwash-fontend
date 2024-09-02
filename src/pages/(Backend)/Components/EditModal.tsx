@@ -1,8 +1,6 @@
 import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
 import CRInputNumber from '@/components/form/CRInputNumber';
-import CRSelect from '@/components/form/CRSelect';
-import CRSelectWithWatch from '@/components/form/CRSelectWithWatch';
 import CRTextarea from '@/components/form/CRTextarea';
 import CARButton from '@/components/ui/CARButton';
 import {
@@ -12,34 +10,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { IModalProps } from '@/interface/interface';
 import { useUpdateServiceMutation } from '@/redux/features/services/servicesApi';
 import { Image } from 'antd';
+import { FC } from 'react';
 import { toast } from 'sonner';
 
-const serviceLevel = [
-  {
-    value: 'Standard',
-    label: 'Standard',
-  },
-  {
-    value: 'Premium',
-    label: 'Premium',
-  },
-  {
-    value: 'Deluxe',
-    label: 'Deluxe',
-  },
-  {
-    value: 'Express',
-    label: 'Express',
-  },
-  {
-    value: 'Eco',
-    label: 'Eco',
-  },
-];
 
-const EditModal = ({ isOpen, onClose, data }) => {
+
+const EditModal:FC<IModalProps> = ({ isOpen, onClose, data }) => {
   const [updateService] = useUpdateServiceMutation();
 
   const handleEditDataSubmit = async (formData:any) => {

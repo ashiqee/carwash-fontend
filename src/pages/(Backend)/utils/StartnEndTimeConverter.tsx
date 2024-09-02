@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 
 
-const StartnEndTimeConverter = (d) => {
+const StartnEndTimeConverter = (d:any) => {
 
 
-const dayjsObject = dayjs(d); // Replace `$d` with your actual Dayjs object
+const dayjsObject = dayjs(d); 
 
 const time = dayjsObject.format('HH:mm'); // Start time in HH:mm format
 

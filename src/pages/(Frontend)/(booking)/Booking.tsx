@@ -24,18 +24,16 @@ import { toast } from 'sonner';
 const Booking = () => {
   const location = useLocation();
   const bookedData = location.state;
- const bookedService = bookedData.data.service;
- const bookedSlot = bookedData.data.slot;
- const [addBooking]=useAddBookingMutation()
-  
-  
+  const bookedService = bookedData.data.service;
+  const bookedSlot = bookedData.data.slot;
+  const [addBooking] = useAddBookingMutation();
+
   const token = useAppSelector(useCurrentToken);
   let user;
-  if(token){
-      user= verifyToken(token);
+  if (token) {
+    user = verifyToken(token);
   }
-  
-  
+
   const { data: userData, isLoading } = useGetUserinfoQuery(user?.userEmail);
 
   if (isLoading) {
@@ -43,37 +41,24 @@ const Booking = () => {
   }
   const userInfo = userData?.data;
 
-
-  const handleBookingSubmit =async (data) => {
-   
-    const userData = {
-      name: data.name || userInfo?.name,
-      email: data.email || userInfo?.email,
-      phone: data.phone || userInfo?.phone,
-    };
-
+  const handleBookingSubmit = async () => {
     const bookings = {
-    
       serviceId: bookedService._id,
-      slotId:bookedSlot._id,
-      vehicleType:"car",
-      vehicleBrand: "Tata",
-      vehicleModel: "Camry",
-       manufacturingYear: 2024,
-     registrationPlate: "ABC123"
-    }
-  console.log(bookings);
+      slotId: bookedSlot._id,
+      vehicleType: 'car',
+      vehicleBrand: 'Tata',
+      vehicleModel: 'Camry',
+      manufacturingYear: 2024,
+      registrationPlate: 'ABC123',
+    };
   
-    const res = await addBooking(bookings)
-    if(res.data.success){
-      toast.success(res.data.message)
-      window.location.href =res.data.data.payment_url
-    }
 
+    const res = await addBooking(bookings);
+    if (res.data.success) {
+      toast.success(res.data.message);
+      window.location.href = res.data.data.payment_url;
+    }
   };
-
- 
-  
 
   return (
     <div>
@@ -111,16 +96,26 @@ const Booking = () => {
                           alt=""
                         />
                         <div>
-                          <Link to={`/services/${bookedService?._id}`}><p className="text-xl">{bookedService?.name}</p></Link>
-                          <p className="text-sm">{bookedService?.serviceLevel}</p>
-                          <p className="text-sm">Duration: {bookedService?.duration}min</p>
+                          <Link to={`/services/${bookedService?._id}`}>
+                            <p className="text-xl">{bookedService?.name}</p>
+                          </Link>
+                          <p className="text-sm">
+                            {bookedService?.serviceLevel}
+                          </p>
+                          <p className="text-sm">
+                            Duration: {bookedService?.duration}min
+                          </p>
                         </div>
                       </TableCell>
                       <TableCell>
                         <p>Date: {bookedSlot?.date}</p>
-                        <p>Time: {bookedSlot?.startTime} - {bookedSlot?.endTime}</p>
+                        <p>
+                          Time: {bookedSlot?.startTime} - {bookedSlot?.endTime}
+                        </p>
                       </TableCell>
-                      <TableCell className="text-right">{bookedService?.price}</TableCell>
+                      <TableCell className="text-right">
+                        {bookedService?.price}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

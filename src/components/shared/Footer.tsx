@@ -13,7 +13,7 @@ const Footer = () => {
           <img
             className="hover:translate-x-5  overflow-hidden object-cover translate-x-2 
             duration-1000 hover:ease-in-out hover:duration-1000"
-            src="/src/assets/svg/bg.svg"
+            src="/svg/bg.svg"
             alt=""
           />
 

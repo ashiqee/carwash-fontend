@@ -11,14 +11,14 @@ import { toast } from 'sonner';
 import { logout, setUser } from '../features/auths/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:5000/api',
+  baseUrl: 'https://car-wash-backend-v2.vercel.app/api',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
-      console.log("set Header");
+     
       
     }
  
@@ -34,19 +34,19 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log("Result api",result);
   
   if (result?.error?.status === 404) {
-    toast.error(result.error.data.message);
+    const errorMsg =(result.error.data as {message:string}).message;
+    toast.error(errorMsg)
   }
   if (result?.error?.status === 403) {
-    toast.error(result.error.data.message);
+    const errorMsg =(result.error.data as {message:string}).message;
+    toast.error(errorMsg)
   }
   if (result?.error?.status === 401) {
-    //* Send Refresh
-    console.log('Sending refresh token');
+    
 
-    const res = await fetch('http://localhost:5000/api/auth/refresh-token', {
+    const res = await fetch('https://car-wash-backend-v2.vercel.app/api/auth/refresh-token', {
       method: 'POST',
       credentials: 'include',
     });

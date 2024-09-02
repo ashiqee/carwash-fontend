@@ -1,7 +1,6 @@
 
 import Banner from './Section/Banner';
 import CallToActions from './Section/CallToActions';
-import ReviewForm from './Section/comp/ReviewForm';
 import FeaturesSection from './Section/FeaturesSection';
 import ReviewSection from './Section/ReviewSection';
 import ServicesSection from './Section/ServicesSection';

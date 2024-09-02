@@ -44,7 +44,7 @@ endpoints:(builder)=>({
 
  updateUserInfo: builder.mutation({
         query: (data) => ({
-          url: `/auth/userInfo/${data._id}`,
+          url: `/auth/userInfo/${data.userId}`,
           method: 'PUT',
           body: data,
         }),

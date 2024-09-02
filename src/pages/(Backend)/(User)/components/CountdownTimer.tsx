@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useState } from "react";
 import { getTimeLeft } from "../../utils/GetTime";
 
 // const countdownTargetDate = new Date("2024-09-04T23:59:59");
 
+interface ICountDownProps{
+  countdownTargetDate:Date
+}
 
-
-const Countdown = ({countdownTargetDate}) => {
+const Countdown: FC<ICountDownProps> = ({countdownTargetDate}) => {
 
     // console.log(countdownTargetDate);
     

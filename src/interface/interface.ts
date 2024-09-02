@@ -46,3 +46,10 @@ export interface TUserPath{
     
    
   };
+
+
+  export interface IModalProps {
+    isOpen: boolean;
+    onClose: ()=>void;
+    data?:any
+  }

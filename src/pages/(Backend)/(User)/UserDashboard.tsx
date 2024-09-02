@@ -2,6 +2,7 @@ import { useGetMyBookingsQuery } from '@/redux/features/bookings/BookingApi';
 
 import Countdown from './components/CountdownTimer';
 import { Link } from 'react-router-dom';
+import Empty from '@/components/shared/Empty';
 
 const UserDashboard = () => {
   const { data: usersBookings,isLoading } = useGetMyBookingsQuery(undefined);
@@ -20,16 +21,15 @@ if(isLoading){
     return dateTimeA.getTime() - dateTimeB.getTime();
   })
 
-  const immediateSlot = sortedBookings?.[0]
 
-  
   
 
   return (
     <div>
       <h4 className="text-3xl font-bold">Up Coming Bookings Slots</h4>
 
-      <div className="grid grid-cols-3 my-10 gap-6">
+      {
+        usersBookings ? <div className="grid grid-cols-3 my-10 gap-6">
         {sortedBookings.map((booked, i) => (
           <div
             className=" space-y-3 justify-between bg-primary/5 hover:scale-105 hover:duration-1000 rounded-md hover:shadow-xl border p-6 shadow-md items-center "
@@ -61,7 +61,8 @@ if(isLoading){
             </div>
           </div>
         ))}
-      </div>
+      </div> : <Empty text={"Your Booking slot is empty"}/>
+      }
     </div>
   );
 };

@@ -39,7 +39,7 @@ const SlotManagement = () => {
   const [filters, setFilters] = useState<TFilterValues>(initialFilterValues);
 
   const { data: serviceSlots, isLoading } =
-    useGetAllServiceSlotsQuery(undefined);
+    useGetAllServiceSlotsQuery(filters);
   const [updateSlots] = useUpdateSlotsMutation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setAddModal] = useState(false);

@@ -30,8 +30,8 @@ const Compare = () => {
         <div>
             <PageBanner pageName="Comparison"/>
             <div className="container mx-auto p-4">
-                <div className="flex justify-end py-4 ">
-                    
+                <div className="flex justify-end gap-4 py-4 ">
+                    <Link to="/services"><button className="bg-button-gradient px-2 p-1 rounded-md text-white">Add More</button></Link>
                 <button onClick={()=>dispatch(clearCompare())} className="bg-button-gradient px-2 p-1 rounded-md text-white">Clear</button>
                 </div>
   <div className="overflow-x-auto">

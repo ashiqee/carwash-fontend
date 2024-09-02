@@ -5,15 +5,17 @@ import CARButton from '@/components/ui/CARButton';
 import { useGetServicesQuery } from '@/redux/features/services/servicesApi';
 
 import CRSelectWithWatch from './../../../components/form/CRSelectWithWatch';
-import { useState } from 'react';
-import { IServices } from '@/interface/interface';
+import { FC, useState } from 'react';
+import { IModalProps, IServices } from '@/interface/interface';
 import { Image } from 'antd';
 import StartnEndTimeConverter from '../utils/StartnEndTimeConverter';
 import { toast } from 'sonner';
 import { useCreateServiceSlotsMutation } from '@/redux/features/services/slotsApi';
 import { Link } from 'react-router-dom';
 
-const CreateSlots = ({ isOpen, onClose }) => {
+
+
+const CreateSlots: FC<IModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
   const [createServiceSlots] = useCreateServiceSlotsMutation();
   const { data: servicesDatas, isLoading } = useGetServicesQuery(undefined);

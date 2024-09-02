@@ -11,12 +11,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-import { useUpdateUserRoleMutation } from '@/redux/features/auths/authApi';
+
 import { useDeleteServiceMutation } from "@/redux/features/services/servicesApi";
-import { Input } from 'antd';
+import { FC } from "react";
+
 import { toast } from 'sonner';
 
-const DeleteServiceModal = ({data}) => {
+interface IDeleteModalProps{
+  data:any
+}
+
+const DeleteServiceModal:FC<IDeleteModalProps> = ({data}) => {
   const [deleteService]= useDeleteServiceMutation()
 
   

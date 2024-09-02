@@ -2,13 +2,11 @@ import CRForm from '@/components/form/CRForm';
 import CRInput from '@/components/form/CRInput';
 import CRTextarea from '@/components/form/CRTextarea';
 import CARButton from '@/components/ui/CARButton';
-import { TReviews } from '@/interface/interface';
 import { useGetUserinfoQuery } from '@/redux/features/auths/authApi';
 import { useCurrentToken } from '@/redux/features/auths/authSlice';
 import { useAddReviewMutation } from '@/redux/features/reviews/reviewsApi';
 import { useAppSelector } from '@/redux/hook';
 import { verifyToken } from '@/utils/verifyToken';
-
 import { Star, Stars } from 'lucide-react';
 import { useState } from 'react';
 import Rating from 'react-rating';
@@ -30,17 +28,16 @@ const ReviewForm = () => {
 
   const RatingComponent = Rating as any;
 
-  console.log(rating);
-
   const handleReviewSubmit = async (data: any) => {
     const ratingData = {
       user: userData?.data?._id,
       feedback: data.feedback,
       rating: rating,
-      profileImg: data.profileImg ||
+      profileImg:
+        data.profileImg ||
         'https://cdn3.pixelcut.app/1/3/profile_picture_1728ecf2bd.jpg',
     };
-    console.log(ratingData);
+
     const res = await addReview(ratingData);
 
     if (res?.data?.success) {
@@ -77,11 +74,11 @@ const ReviewForm = () => {
             />
           </div>
           <CRInput
-              type="text"
-              className="w-full"
-              placeholder='profile image url'
-              name={'profileImg'}
-            />
+            type="text"
+            className="w-full"
+            placeholder="profile image url"
+            name={'profileImg'}
+          />
           <CRTextarea type="text" name="feedback" />
           <CARButton text="Give your feedback" />
         </CRForm>

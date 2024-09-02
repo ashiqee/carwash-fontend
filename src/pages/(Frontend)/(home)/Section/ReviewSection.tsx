@@ -18,7 +18,7 @@ import { useGetReviewsQuery } from '@/redux/features/reviews/reviewsApi';
 import { TReviews } from '@/interface/interface';
 
 const ReviewSection = () => {
-  const {data:reviewData,isLoading}= useGetReviewsQuery(undefined)
+  const { data: reviewData, isLoading } = useGetReviewsQuery(undefined);
   const token = useAppSelector(useCurrentToken);
 
   let user;
@@ -26,24 +26,28 @@ const ReviewSection = () => {
     user = verifyToken(token);
   }
 
-  if(isLoading){
-    return <>Loading..</>
+  if (isLoading) {
+    return <>Loading..</>;
   }
 
-  const averageReview = reviewData?.data?.reduce((acc:any,review:TReviews)=>acc+review.rating,0)/(reviewData?.data?.length || 1)
+  const averageReview =
+    reviewData?.data?.reduce(
+      (acc: any, review: TReviews) => acc + review.rating,
+      0,
+    ) / (reviewData?.data?.length || 1);
 
   return (
     <div className="my-20 ">
       <div
         className="relative overflow-hidden min-h-[800px] xl:min-h-[650px]"
         style={{
-          backgroundImage: "url('/src/assets/svg/testimonial_bg.png')",
+          backgroundImage: "url('/svg/testimonial_bg.png')",
           backgroundRepeat: 'repeat',
           backgroundAttachment: 'fixed',
         }}
       >
         <div className="absolute top-1 px-4 md:px-0 md:left-[5%] 2xl:left-[0%] xl:px-8  w-full 2xl:container 2xl:mx-auto ">
-          <h3 className="text-center relative xl:right-16 text-primary font-bold md:text-4xl 2xl:text-6xl">
+          <h3 className="text-center relative xl:right-0 text-primary font-bold md:text-4xl 2xl:text-6xl">
             What Our Clients Say
           </h3>
 
@@ -51,18 +55,26 @@ const ReviewSection = () => {
             <div className="  rounded-lg">
               {user ? <ReviewForm></ReviewForm> : <OverlayReviewForm />}
             </div>
-            <div className=' flex flex-col space-y-6 justify-center items-center p-6'>
-<h3 className='text-3xl font-bold'>Overall Rating:</h3>
-<div className='flex justify-center'>
-            {Array.from({length:averageReview}).map((_,i)=>(
-                    <span className="text-rose-600 fill-rose-600 " key={i}><Star/></span>
+            <div className=" flex flex-col space-y-6 justify-center items-center p-6">
+              <h3 className="text-3xl font-bold">Overall Rating:</h3>
+              <div className="flex justify-center">
+                {Array.from({ length: averageReview }).map((_, i) => (
+                  <span className="text-rose-600 fill-rose-600 " key={i}>
+                    <Star />
+                  </span>
                 ))}
-            </div>
-              <h2 className='text-6xl text-primary font-bold'> {averageReview.toFixed(1)}    <span className='text-[11px] text-gray-600'> {reviewData?.data?.length} reviews </span> </h2>
-           
-            
+              </div>
+              <h2 className="text-6xl text-primary font-bold">
+                {' '}
+                {averageReview.toFixed(1)}{' '}
+                <span className="text-[11px] text-gray-600">
+                  {' '}
+                  {reviewData?.data?.length} reviews{' '}
+                </span>{' '}
+              </h2>
+
               <Link className="flex justify-center" to={'/reviews'}>
-                               <CARButton text="See all feedback" />
+                <CARButton text="See all feedback" />
               </Link>
             </div>
           </div>
@@ -71,14 +83,14 @@ const ReviewSection = () => {
       <div
         className="relative  overflow-hidden min-h-[800px] xl:min-h-[650px]"
         style={{
-          backgroundImage: "url('/src/assets/svg/testimonial_bg.png')",
+          backgroundImage: "url('/svg/testimonial_bg.png')",
           backgroundRepeat: 'repeat',
           backgroundAttachment: 'fixed',
         }}
       >
-        <Carousel className=" container    ">
+        <Carousel className=" max-w-md mx-auto    ">
           <CarouselContent>
-            {reviewData?.data.map((item:TReviews, index:number) => (
+            {reviewData?.data.map((item: TReviews, index: number) => (
               <CarouselItem key={index}>
                 <div className="mt-10 md:mt-0">
                   <Card className="rounded-t-[100px] max-w-md mx-auto rounded-b-[150px] bg-primary/80 text-white">
@@ -91,7 +103,7 @@ const ReviewSection = () => {
                           ))}
                         </div>
                         <span className="xl:text-xl text-[14px] text-center font-semibold">
-                          {item.feedback}
+                          {item.feedback.slice(0,150)}
                         </span>
                         <div className="w-28 h-28 rounded-full">
                           <img
@@ -100,7 +112,9 @@ const ReviewSection = () => {
                             alt=""
                           />
                         </div>
-                        <p className="xl:text-md  text-[14px]">{item?.user?.name}</p>
+                        <p className="xl:text-md  text-[14px]">
+                          {item?.user?.name}
+                        </p>
                       </CardContent>
                     }
                   </Card>
